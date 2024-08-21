@@ -4,4 +4,8 @@ from . import views
 
 urlpatterns = [
     path('top/', views.top, name='top'),
+    path('user_name/category1/category2/', views.detail, name='detail'),
+
+
+
 ]

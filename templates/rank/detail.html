@@ -20,35 +20,20 @@
 
 </head>
 
-ジャンル＞製品＞ランク<br>
-家電<br>
-洗濯機<br>
-冷蔵庫<br>
-ドライヤー<br>
-プロジェクター<br>
-スピーカー<br>
 
 <h3>データ一覧</h3>
+<!-- template.html -->
 <table class="table table-bordered border-dark">
-    <thead class="table-info">
+    {% for key, value_list in data.items %}
     <tr>
-        <th scope="col"></th>
-        <th scope="col">カテゴリー1</th>
-        <th scope="col">カテゴリー2</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for key, value in category_dict.items %}
-    <tr>
-        <td scope="row"><a href="{% url 'detail' %}">開く</a></td>
-        <td>{{ value.category1 }}</td>
-        <td>{{ value.category2 }}</td>
+        <th  class="table-info" scope="col">{{ key }}</th>
+        {% for value in value_list %}
+            <td scope="row">{{ value }}</td>
+        {% endfor %}
     </tr>
     {% endfor %}
-    </tbody>
 </table>
 
-<img src="{% static 'img/home.jpg' %}" alt="画像の説明" />
 
 
 
