@@ -40,7 +40,7 @@
     <tbody>
     {% for key, value in category_dict.items %}
     <tr>
-        <td scope="row"><a href="{% url 'detail' %}">開く</a></td>
+        <td scope="row"><a href="{% url 'detail' value.category1 value.category2 %}">開く</a></td>
         <td>{{ value.category1 }}</td>
         <td>{{ value.category2 }}</td>
     </tr>

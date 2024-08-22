@@ -17,11 +17,20 @@ def top(request):
     return render(request, 'rank/top.html', data)
 
 
-def detail(request):
+def detail(request, category1, category2):
+    # data = {
+    #     'user_name': ['川内', ],
+    #     'カテゴリー1': [30, 25],
+    #     'カテゴリー2': ['東京都', '大阪府'],
+    #     '製品名': ['東京都', '大阪府'],
+    #     'メーカー': ['東京都', '大阪府'],
+    #     '': ['東京都', '大阪府'],
+    #     '': ['東京都', '大阪府'],
+    # }
     data = {
-        'user_name': ['川内', ],
-        'カテゴリー1': [30, 25],
-        'カテゴリー2': ['東京都', '大阪府'],
+        'user_name': ['yumaru51'],
+        'カテゴリー1': [category1],
+        'カテゴリー2': [category2],
         '製品名': ['東京都', '大阪府'],
         'メーカー': ['東京都', '大阪府'],
         '': ['東京都', '大阪府'],
