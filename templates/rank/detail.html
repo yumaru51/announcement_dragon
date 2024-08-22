@@ -22,7 +22,65 @@
 
 
 <h3>データ一覧</h3>
-<!-- template.html -->
+<!-- card　タブ変えたときの枠の高さを統一したい -->
+<div id="card" class="row" style="margin-top:-60px; padding-top:60px;">
+    <div class="col-sm-3">
+        <div class="card" style="max-width: 25rem">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#No1">No.1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#status">status</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#level">level</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content mt-3" style="max-height: 50rem">
+                <div class="tab-pane fade show active" id="No1">
+                    <img class="card-img-top"
+                         src="{% static 'img/'|add:rank_records.product_name|add:'.jpg' %}" alt="...">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ rank_records.product_name }}</h4>
+                        <p class="card-text">{{ rank_records.maker }}</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="#" class="badge badge-success">01.デザートスパーダ</a></li>
+                            <li class="list-group-item"><a href="#" class="badge badge-success">02.デザート・ジラソーレ</a></li>
+                            <li class="list-group-item"><a href="#" class="badge badge-success">03.サーブルス</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="status">
+                    こいつのステータスはまじやべーぜー！
+                </div>
+                <div class="tab-pane fade" id="level">
+                    こいつのレベルはまじやべーぜー！
+                </div>
+            </div>
+            <div class="card-footer">
+                ONEPIECEキャラクター一覧
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+<!-- これやるなら送った方が良い -->
+{% comment %}
+{% for key, value_list in data.items %}
+    {% if key == 'カテゴリー2' %}
+        {% for value in value_list %}
+            {{ value }}
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+{% endcomment %}
+
+<!-- とりあえずテーブルで出してみた -->
 <table class="table table-bordered border-dark">
     {% for key, value_list in data.items %}
     <tr>
@@ -33,8 +91,4 @@
     </tr>
     {% endfor %}
 </table>
-
-
-
-
 

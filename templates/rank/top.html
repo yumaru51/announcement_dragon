@@ -20,15 +20,7 @@
 
 </head>
 
-ジャンル＞製品＞ランク<br>
-家電<br>
-洗濯機<br>
-冷蔵庫<br>
-ドライヤー<br>
-プロジェクター<br>
-スピーカー<br>
-
-<h3>データ一覧</h3>
+<h3>ランキングを見る</h3>
 <table class="table table-bordered border-dark">
     <thead class="table-info">
     <tr>
@@ -47,6 +39,45 @@
     {% endfor %}
     </tbody>
 </table>
+
+<h3>Category1</h3>
+<table class="table table-bordered border-dark">
+    <thead class="table-info">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Category1</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for category1 in all_category1s %}
+            <tr>
+                <td scope="row">{{ category1.id }}</td>
+                <td scope="row">{{ category1.category1 }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Category2</h3>
+<table class="table table-bordered border-dark">
+    <thead class="table-info">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Category1</th>
+            <th scope="col">Category2</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for category2 in all_category2s %}
+            <tr>
+                <td scope="row">{{ category2.id }}</td>
+                <td scope="row">{{ category2.category1 }}</td>
+                <td scope="row">{{ category2.category2 }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 
 <img src="{% static 'img/home.jpg' %}" alt="画像の説明" />
 
