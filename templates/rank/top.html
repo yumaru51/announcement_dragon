@@ -1,6 +1,8 @@
-<!doctype html>
-<html lang="ja">
+{% extends 'base.html' %}
 {% load static %}
+
+{% block title %}TOP画面{% endblock %}
+
 <head>
     <!--各タイトル格納-->
     <title></title>
@@ -20,6 +22,7 @@
 
 </head>
 
+{% block content %}
 <h3>ランキングを見る</h3>
 <table class="table table-bordered border-dark">
     <thead class="table-info">
@@ -81,6 +84,6 @@
 
 <img src="{% static 'img/home.jpg' %}" alt="画像の説明" />
 
-
+{% endblock %}
 
 
