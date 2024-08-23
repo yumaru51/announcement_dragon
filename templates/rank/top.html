@@ -24,6 +24,40 @@
     {% endfor %}
     </tbody>
 </table>
+<br>
+
+<!--category2-->
+<h3>ランキング登録</h3>
+{% comment %}
+<!--<div class="col-2">-->
+<!--    <select id="next_step" name="next_step" class="form-select">-->
+<!--        {% for category2 in all_category2s %}-->
+<!--            <option value="{{ app.name }}">{{ category2.category2 }}</option>-->
+<!--        {% endfor %}-->
+<!--    </select>-->
+<!--</div>-->
+<!--<button class="btn btn-primary w-10 btn-lg" type="button" onclick="location.href=''">変更管理新規登録</button>-->
+{% endcomment %}
+
+<form action="" name="form_top_page" id="form_top_page" method="post">
+    {% csrf_token %}
+    <div class="form-control">
+        <div class="row m-1">
+            <select id="next_step1" name="next_step1" class="form-select">
+                {% for category1 in all_category1s %}
+                    <option value="{{ app.name }}">{{ category1.category1 }}</option>
+                {% endfor %}
+            </select>
+            <select id="next_step2" name="next_step2" class="form-select">
+                {% for category2 in all_category2s %}
+                    <option value="{{ app.name }}">{{ category2.category2 }}</option>
+                {% endfor %}
+            </select>
+            <div class="col-2"><button class="btn btn-primary mt-2" type="submit">絞り込み</button></div>
+        </div>
+    </div>
+</form>
+<br>
 
 <h3>Category1</h3>
 <table class="table table-bordered border-dark">
@@ -42,6 +76,7 @@
         {% endfor %}
     </tbody>
 </table>
+<br>
 
 <h3>Category2</h3>
 <table class="table table-bordered border-dark">
@@ -62,7 +97,7 @@
         {% endfor %}
     </tbody>
 </table>
-
+<br>
 
 <img src="{% static 'img/home.jpg' %}" alt="画像の説明" />
 

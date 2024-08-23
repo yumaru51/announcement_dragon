@@ -31,17 +31,34 @@
                         <h4 class="card-title">{{ rank_records.product_name }}</h4>
                         <p class="card-text">{{ rank_records.maker }}</p>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><a href="#" class="badge badge-success">01.デザートスパーダ</a></li>
-                            <li class="list-group-item"><a href="#" class="badge badge-success">02.デザート・ジラソーレ</a></li>
-                            <li class="list-group-item"><a href="#" class="badge badge-success">03.サーブルス</a></li>
+                            <li class="list-group-item"><a href="#" class="badge badge-success">更新</a></li>
+                            <li class="list-group-item"><a href="#" class="badge badge-success">削除</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="status">
-                    こいつのステータスはまじやべーぜー！
+                    <img class="card-img-top"
+                         src="{% static 'img/'|add:rank_records.product_name|add:'.jpg' %}" alt="...">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ rank_records.product_name }}</h4>
+                        <p class="card-text">{{ rank_records.maker }}</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="#" class="badge badge-success">更新2</a></li>
+                            <li class="list-group-item"><a href="#" class="badge badge-success">削除2</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="level">
-                    こいつのレベルはまじやべーぜー！
+                    <img class="card-img-top"
+                         src="{% static 'img/'|add:rank_records.product_name|add:'.jpg' %}" alt="...">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ rank_records.product_name }}</h4>
+                        <p class="card-text">{{ rank_records.maker }}</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="#" class="badge badge-success">更新3</a></li>
+                            <li class="list-group-item"><a href="#" class="badge badge-success">削除3</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="card-footer">
