@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Model  # Model情報を取得
 from rank.models import Category1, Category2, RankData
+from rank.forms import RankDataForm
 
 
 def top(request):
@@ -10,10 +11,15 @@ def top(request):
             'category1': category_data.category1,
             'category2': category_data.category2,
         }
+    rankdatas = RankDataForm(initial=dict(
+        user_name='yumaru51',
+    )),
+
     data = {
         'category_dict': category_dict,
-        'all_category1s':Category1.objects.all(),
-        'all_category2s':Category2.objects.all(),
+        'all_category1s': Category1.objects.all(),
+        'all_category2s': Category2.objects.all(),
+        'rankdatas': rankdatas,
         'message': 'データを出力しました'
     }
     return render(request, 'rank/top.html', data)
