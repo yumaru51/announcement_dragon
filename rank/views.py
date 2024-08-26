@@ -1,21 +1,37 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Model  # Model情報を取得
 from rank.models import Category1, Category2, RankData
+from rank.forms import RankDataForm
 
 
 def top(request):
-    category_dict = {}
-    for category_data in Category2.objects.all():
-        category_dict[str(category_data.id)] = {
-            'category1': category_data.category1,
-            'category2': category_data.category2,
+    if request.method == 'POST':
+        form = RankDataForm(request.POST)
+        if form.is_valid():
+            obj = RankData.objects.create(id=None)
+            request_form = RankDataForm(data=request.POST, instance=obj)
+            request_form.save()
+            user_name = form.cleaned_data['user_name']
+            category1 = form.cleaned_data['category1']
+            category2 = form.cleaned_data['category2']
+            return redirect('top')
+    else:
+        category_dict = {}
+        for category_data in Category2.objects.all():
+            category_dict[str(category_data.id)] = {
+                'category1': category_data.category1,
+                'category2': category_data.category2,
+            }
+        rankdatas = RankDataForm(initial=dict(
+            user_name='yumaru51',
+        )),
+        data = {
+            'category_dict': category_dict,
+            'all_category1s': Category1.objects.all(),
+            'all_category2s': Category2.objects.all(),
+            'rankdatas': rankdatas,
+            'message': 'データを出力しました'
         }
-    data = {
-        'category_dict': category_dict,
-        'all_category1s':Category1.objects.all(),
-        'all_category2s':Category2.objects.all(),
-        'message': 'データを出力しました'
-    }
     return render(request, 'rank/top.html', data)
 
 

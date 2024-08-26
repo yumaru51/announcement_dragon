@@ -3,11 +3,11 @@ from .models import Category1, Category2, RankData
 
 
 # list用意　外部参照でlist作成('value', 'text')形式
-category1_list = [('', '')]
-for category1 in Category1.objects.all().values_list('id', 'category1'):
+category1_list = []
+for category1 in Category1.objects.all().values_list('category1', 'category1'):
     category1_list.append(category1)
-category2_list = [('', '')]
-for category2 in Category2.objects.all().values_list('id', 'category2'):
+category2_list = []
+for category2 in Category2.objects.all().values_list('category2', 'category2'):
     category2_list.append(category2)
 
 
@@ -41,3 +41,4 @@ class RankDataForm(forms.ModelForm):
         fields = ['user_name', 'category1', 'category2', 'product_name', 'maker', 'price', 'durability', 'portability',
                   'functionality', 'repeat', 'category']
         widgets = {}
+
