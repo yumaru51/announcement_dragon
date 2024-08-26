@@ -59,21 +59,6 @@
 </form>
 <br>
 
-
-<form action="" name="form_top_page" id="form_top_page2" method="post">
-    {% csrf_token %}
-    <div class="form-control">
-        <div class="row m-1">
-                {% for rankdatas in rankdatas %}
-                <div class="col-2 px-0">{{ rankdatas.label }}{{ rankdatas }}</div>
-                {% endfor %}
-                <div class="col-2"><button class="btn btn-primary mt-2" type="submit">絞り込み</button></div>
-        </div>
-    </div>
-</form><br>
-<br>
-
-
 <h3>Category1</h3>
 <table class="table table-bordered border-dark">
     <thead class="table-info">

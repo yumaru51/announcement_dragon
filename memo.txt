@@ -1,16 +1,63 @@
 
 【今日やること】
-登録処理したい。
 転職サイト、言語で調べよう。
-●urlパラメーターでアプリ名が必要になるときはなんだっけ。
-
-
-EXCELでA4で隅に行ったら自動改行。またはあとから改行。
-余白について、、、
-
+登録処理したい。
+一番上のヘッダーもbootstrapに。
 
 めもにまとめる「python\[python]めも.xlsx」「python\【マニュアル】配列変数ごちゃごちゃになるので整理.xlsx」
+●templates　テンプレートタグ
+　辞書型展開：{% for key, value in page_dict.items %}
+　単一値：{{ value }}、{% value %}
+　リスト型：{% for X in X %} {{ X.A }} {{ X.B }} {{ X.C }}
+　入力時の{% csrf_token %}
+　URL：{% url name %}　action,herf,,,
+　●urlパラメーターでアプリ名が必要になるときはなんだっけ。
+●views
+　requestの取得：変数 = request.POST['inputタグのname']
+●model
+デフォルトでは、DBのテーブル名は「アプリ名_Modelのクラス名」となる。
+先頭にアプリ名が付くのが嫌な場合は、下記の方法でテーブル名を指定できる。
 
+データ登録：models.Modelクラス名(項目①=格納する値①, 項目②=格納する値②, 項目③=格納する値③, ......).save()
+データ更新：models.Modelクラス名.objects.get(KEY項目=KEY値).更新する項目 = '更新する値'
+
+変数_all = models.Modelクラス名.objects.all()
+
+
+class クラス名(models.Model):
+項目① = models.データ型('labal表示文字',設定)
+項目② = models.データ型('labal表示文字',設定)
+項目③ = models.データ型('labal表示文字',設定)
+    class Meta:
+        db_table = 'テーブル名' 
+
+●forms
+class ModelFormクラス名(forms.ModelForm):
+    class Meta:
+        model = Modelクラス名
+        # 表示するフィールド、'__all__'とすると全て
+        fields = ['項目①', '項目②', '項目③',,,,,, ]
+
+view
+変数 = models.ModelFormクラス名
+
+html
+①{{ 変数 }}
+②{{ 変数.as_p }}
+③{{ 変数.as_ul }}
+④<table>{{ 変数.as_table }}</table>
+
+view
+変数 = models.ModelFormクラス名(request.POST or None)
+if 変数.is_valid():
+    変数.save()
+
+●settings
+　templatesのパス
+
+●return の種類まとめる！
+　HttpResponse：
+　render：return render(request, '.html', data)
 
 【明日やること】
 GETにするか、POSTにするか。
@@ -20,12 +67,32 @@ jqueryやめたいが、、、
 DBファイル分けるか？ルーターにするか？
 VIEWフォルダに格納するか？
 
-
-
 【備忘録】
 仕様、
 　自分がどのカテゴリのサイトを作りたいのか。「レビューサイト」や「比較サイト」
 　最初は、ジャンル・製品は固定
 　自分用→誰でも登録できるように、
+
+【※共有】
+●オンライン販売サイト「Eコマース（E-commerce）」
+「Electronic Commerce」の略。
+インターネットを通じて商品やサービスを販売・購入するビジネス。
+オンラインショッピングサイトやマーケットプレイスなどがその代表例。
+●CMS「Content Management System（コンテンツ管理システム）」
+ウェブサイトのコンテンツ（テキスト、画像、動画など）を管理・編集・公開するためのソフトウェアやプラットフォームを指します。
+プログラミングの知識がなくても、ユーザーが簡単にウェブサイトを構築し、コンテンツを更新できるようにするのがCMSの主な役割です。
+WordPress、Joomla!、Drupal、
+●ブログ
+●ポータルサイト
+●SNS
+●ワークフローシステム
+●コーポレートサイト
+●教育サイト
+●フォーラム
+●ニュースサイト
+●オンラインコミュニティ
+●ポートフォリオサイト
+●マーケットプレイス
+●ランディングページ
 
 
