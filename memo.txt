@@ -14,128 +14,15 @@ EXCEL表とかに一旦データまとめて、50件くらい入れたいかも�
 
 
 【めも】
-タグのアトリビュート並びの統一
-<button> class, type, formaction, form, onclick, 
-<form>  action, name, id, method, 
-<div> class, id, 
-<select> id, name, class, hidden, 
-<a> class, href, data, 
-
-【HTML】
-タグ＝要素 (element)　<input>,<p>,<table>,,,
-属性 (attribute)　value="", id="", name="",,, 
-
-【JS】
-オブジェクト.プロパティ
-https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Working_with_Objects
-ノード(プロパティ？)　.value, .textContent,,,
-メソッド(function)
-
-【admin.py】
-システム画面上からマスタデータ変更を行うための機能は標準搭載されている。
-
-from django.contrib import admin
-from models import model
-
-class Model名Admin(admin.ModelAdmin):
-    list_display = ('項目', '', ) # 画面上に表示
-    list_filter = ['項目', '',  ] # 右側にフィルター表示
-    search_fields = ['項目', ''] # 検索フィルターは一つだが、指定した項目で検索できる
-
-admin.site.register(Model名, Model名Admin)
-
-【CDN】Content Delivery Network
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
-    <!--CSS-->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/quality_change_management.css' %}">
-
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
-    <!-- Select2 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-【urls.py】
-プロジェクト＞アプリにURLをつなげていく
-urlは古い書き方みたいなのでpath安定でよさそう
-①
-from django.conf.urls import url
-from django.urls import path
-urlpatterns = [
-    path('accounts/', include('django.contrib.auth.urls')),はログアウトとか
-    path('admin/', admin.site.urls),は管理者画面とか
-    path('url', view.関数名, name='name'),
-]
-②
-app_name = 'アプリ名'
-urlpatterns = [
-    path('url', view.def関数名, name='呼び出し名')
-    path('url/<int:id>/<value>', view.def関数名, name='呼び出し名')※strは？
-]
-↓
-def 関数名(request, id, value):※GETオンリーだよね？
-
-template
-推奨　<form action="{% url 'アプリ名:呼び出し名' %}" method="post">
-非推奨　<form action="{% url '呼び出し名' %}" method="post">
-
-パラメーター
-<form action="{% url 'アプリ名:呼び出し名' パラメーター %}" method="post">
-動的に
-<form action="{% url 変数 %}" method="post">※変数を「''」で囲まない、パラメーターは？
-
-
-【bootstrap】
-ページ内タブ実装
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a href="#page1" class="nav-link active" data-toggle="tab">タブ１</a>
-        </li>
-        <li class="nav-item">
-            <a href="#page2" class="nav-link" data-toggle="tab">タブ２</a>
-        </li>
-        <li class="nav-item">
-            <a href="#page3" class="nav-link" data-toggle="tab">タブ３</a>
-        </li>
-    </ul>
-
-    <div class="tab-content">
-        <div id="page1" class="tab-pane active">
-            1
-        </div>
-        <div id="page2" class="tab-pane">
-            2
-        </div>
-        <div id="page3" class="tab-pane">
-            3
-        </div>
-    </div> 
-
-CSS定義(setting.py)
-setting.py
-import os
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-LOGOUT_REDIRECT_URL = '/isk_tools/'
-
-template(header)
-{% load static %}　({% load staticfiles %})
-<link rel="stylesheet" type="text/css" href="{% static 'css/ファイル名.css' %}">
-
-コンテナについて
-コンテナはデフォルトで中央寄せとなる。(「container-fluid」などで対応)
-左寄せにしたい場合は、「container m-0」などでmarginを調整する。
-
-アイテムの折り返し
-<div style="display:inline-flex; flex-wrap:wrap;"></div>
 
 【API】
 
+【】
+【】
+【】
+【】
+【】
+【】
 【】
 
 
