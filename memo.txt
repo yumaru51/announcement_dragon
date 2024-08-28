@@ -16,10 +16,435 @@ EXCEL表とかに一旦データまとめて、50件くらい入れたいかも�
 【めも】
 
 【API】
+QuerySet？
+QueryDict＝辞書型
 
-【】
-【】
-【】
+all　全件取得
+　Model.objects.all()
+
+forで1件ずつ処理＆その時の変数名
+for item in Model.objects.all()
+for record in Model.objects.all()
+for obj in Model.objects.all()
+for model_data in Model.objects.all()
+for instance in Model.objects.all()
+
+get　単一レコードを取得。複数取得された場合はエラーとなる。
+　Model.objects.get(id=request.POST["id"]).field
+getは単一レコードのため、「.field名」で値を取得できる。（filterは単一レコードでも不可）
+
+filter　絞り込み機能、複数件取得
+返り値は(QueryDict)辞書型のため「.field名」で項目絞り込みできないが、
+単一項目の複数レコード取得は「.values('field')」＝辞書型、「values_list('field')」＝リスト型を使う。
+
+基礎
+　Model.objects.filter(id=request.POST["id"])
+AND検索
+　変数 = Model.objects.filter(field='条件', field='条件', field='条件')
+メソッドチェーンでもいける。絞り込み機能など動的にするならこっちがよいかも。
+　変数 = Model.objects.filter(field='条件').filter(field='条件').filter(field='条件')
+OR検索
+　queryset1 = Model.objects.filter(field1=value1)
+　queryset2 = Model.objects.filter(field2=value2)
+　result = queryset1 | queryset2
+
+絞り込み機能　条件に変数を指定
+変数で条件を指定して、動的に条件を変更する。
+condition1 = {}
+condition2 = {}
+condition3 = {}
+if request.POST['field'] is not '':
+    condition1['field'] = 'value'
+if request.POST['field'] is not '':
+    condition2['field'] = ('value', 'value')
+if request.POST['field'] is not '':
+    condition3['field__in'] = [0, 1, 2, 3]
+変数 = Model.objects.filter(**condition1).filter(**condition2).filter(**condition3)
+※field = 'value', field = ('value', 'value'), field__in = [0, 1, 2, 3],となる。 
+
+from django.db.models import Q
+　変数 = Model.objects.filter(Q(field='条件') | Q(field='条件') | ,,, | Q(field='条件')).disctinct()
+　変数 = Model.objects.filter(Q(field='条件') , Q(field='条件') , Q(field='条件'))
+
+
+件数取得
+「.count()」
+存在チェック
+「.exists()」　count() > 0 と同じ
+項目指定
+.values('field名')　※field名の指定なしで全て？型が変わるのか？
+並び
+「.order_by('項目') or ('-項目')」
+重複削除
+「.distinct()」
+先頭から件数表示
+「.first()」
+完全一致
+　(field__iexact='条件')
+部分一致(大文字小文字区別無はiをつける)※条件指定なし全件！
+　(field__contains='条件')    (field__icontains='条件')
+前方一致
+(field__startswith='条件')    (field__istartswith='条件')
+後方一致
+(field__endswith='条件')    (field__iendswith='条件')
+より大きい　以上
+(field__gt='条件')    (field__gte='条件')
+より小さい　以下
+(field__lt='条件')    (field__lte='条件')
+IN句
+(field__in=List)　※リスト型になので注意[0, 1, 2,,,]となる。こっちではない→(0, 1, 2,,,)
+BETWEEN句
+(field__range=(start, end))
+
+
+集計
+GROUP BY 項目
+ライブラリの仕様上「SELECT 項目, count('項目') as 別名 FROM テーブル名 GROUP BY 項目」となる。
+　from django.db.models import Count
+　Model.objects.filter(id=id).values('field').annotate(別名=Count('field'))
+
+
+IN句応用
+他のAPIで抽出したQuerySetをサブクエリにしてIN句で絞り込む
+field__inにはリスト型しか指定できない。QuerySetは不可。QuerySetのデータを指定したい場合、リスト型に変換する。
+
+# APIで絞り込むデータのQuerySetを作成。「.values()」で項目のみのQuerySetにする？
+テーブル名1_list = テーブル名1.objects.filter(id=id).values()
+# QuerySetからlist(仮想dict型)に変換。
+l = list(テーブル名1_list)
+# dict型からlist型に変換。「.get()」でkeyを指定して値のみのlist型に変換。
+項目_list = [d.get('key') for d in l]
+# field__inに絞り込んでリストを指定。
+テーブル名_lists = テーブル名2.objects.filter(field__in=項目_list)
+
+raw　直接クエリ
+sql = "SELECT * FROM table"
+変数 = Model.objects.raw(sql)
+
+【request】
+
+request.POST['name']
+get関数
+変数 = request.POST.get('key')
+
+GETかPOSTか判断
+if request.method == 'POST':
+
+【templateへの送り値】
+context,data,params / parameters
+
+context = {
+'key': value,
+'key': value,
+'key': value,
+}
+
+宣言した後からでも変更可能
+context['key'] = value
+
+【db_router.py】
+アプリ毎にデータベースを変えたい場合、
+「setting.py」で
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    'app名_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'app名_db.sqlite3'),
+    }
+}
+DATABASE_ROUTERS = ['config.db_router.DBRouter']
+
+「db_router.py」で
+class DBRouter:
+    # settingで設定したDB名とアプリ(apps.pyのname)を指定
+    def db_for_read(self, model, **hints):
+        if model._meta.app_label == 'app名':
+            return 'default'
+        if model._meta.app_label == 'app名':
+            return 'app名_db'
+        return None
+
+    def db_for_write(self, model, **hints):
+        if model._meta.app_label == 'common':
+            return 'default'
+        if model._meta.app_label == 'app名':
+            return 'app名_db'
+        return None
+
+    def allow_relation(self, obj1, obj2, **hints):
+        if obj1._meta.app_label == 'common' and obj2._meta.app_label == 'app名':
+            return True
+        if obj1._meta.app_label == 'app名' and obj2._meta.app_label == 'app名':
+            return True
+        return None
+
+    def allow_migrate(self, db, app_label, model=None, **hints):
+        if app_label == 'auth' or app_label == 'contenttypes' or app_label == 'sessions' or app_label == 'admin' or app_label == 'common':
+            return db == 'default'
+        if app_label == 'app名':
+            return db == 'app名_db'
+        return None
+
+【Model】
+models.py細分化について
+modelsフォルダにmodelsファイルを分ける場合は「__init__」でクラスを宣言。
+
+基礎
+デフォルトのテーブル名は「app名_Model名」となる。
+「verbose_name」は省略できる(第一引数)。管理画面などで表示する名称。
+class Model(models.Model):
+    field1 = models.IntegerField('表示名', primary_key=True)
+    field2 = models.CharField('表示名', max_length=20, blank=True, null=True)
+
+    class Meta:
+        db_table = 'table名'
+
+型一覧　※まとめる
+IntegerField
+CharField
+BooleanField
+
+共通引数　※まとめる
+primary_key=True,False
+blank=True,False
+null=True,False
+default=value
+※後から追加する項目でblank,nullがTrueのものはdefaultを設定するべし。
+
+引数　※まとめる
+文字数
+max_length=桁数
+
+複合キー
+class Meta:
+    unique_together = (('複合キー1', '複合キー2'),)
+
+書込禁止の参照のみ
+class Meta:
+    managed = False
+
+外部参照
+参照先の「primary_key」と紐づく。参照先・参照元の項目名は任意。
+参照元の項目名はDB側では末尾に「_id」が自動で追加される。
+
+class Model(models.Model):
+    参照項目 = models.ForeignKey(Model, verbose_name='表示名', blank=False, null=False, on_delete=models.PROTECT)
+
+参照元の参照項目を取得する場合、「_id」をつけて他の項目同様に取得する。
+　Model.objects.get(id=id).参照項目_id
+
+参照先に接続した後、参照先のいろんな項目を取得できる。
+　Model.objects.get(id=id).参照項目
+
+同テーブル中に同テーブルへの外部参照を複数項目で行う場合、related_nameの設定が必須。
+外部参照の逆引きの際、複数項目あるとどちらかを判断できないため「related_name」で逆引きの名称を設定する。
+また参照先に対して「related_name」が全体で重複してはいけない？ため、related_nameにはModel名を含めたほうがよい。
+class 参照元Model(models.Model):
+    A = 参照先Model.ForeignKey(model, ..., related_name='参照元Model_A')
+    B = 参照先Model.ForeignKey(model, ..., related_name='参照元Model_B')
+
+逆引きの方法
+Model.objects.get(id=id).参照元Model_set.all()
+
+
+新規作成　まず新規レコードを確保して項目ごとに値を設定しデータを保存する。
+obj = model.objects.create(id=None)
+obj.項目 = 値
+obj.save()
+
+更新　更新レコードを指定して項目ごとに値を設定しデータを更新する。
+obj = model.objects.get(id=id)
+obj.項目 = 値
+obj.save()
+
+Model(
+field1 = value1,
+field2 = value2,
+field3 = value3,
+).save()
+
+新規作成＆更新　データがあれば更新、なければcreateして項目ごとに値を設定しデータを保存する。
+obj, created = model.objects.get_or_create(id=id)
+obj, created = model.objects.update_or_create(id=id)
+obj.項目 = 値
+obj.save()
+
+
+デフォルト帰り値
+objects関数でgetした際のデフォルト返り値を設定する。デフォルトは「model object (primary_key)」。
+（管理画面の表示も反映される。）
+(マスターからデータ取得する際は基本和名などを取得するので、和名をデフォルト返り値に設定すると楽。
+たとえばユーザーマスタから日本語表記の名前を取得するなど)
+
+class Model(models.Model):
+    項目A = 
+    項目B = 
+    項目C = 
+
+    def __str__(self):
+        return u'%s %s' % (self.項目B, self項目C)
+
+※ただしこの時点では文字型ではないので、文字列結合の際は「str()」で文字型とすること？
+(「.項目名」で項目まで落とし込めば型も変更されるが下記の状態ではまだ型は変わっていない。)
+    model = Model.objects.get(id=id)
+
+【form】
+formのclass内はサービス起動時に読み込まれる。initは処理で関数呼び出しされた際に読み込まれる。
+listなどの変数はファイル内の変数としてサービス起動時から保持されるので、各フォームごとではなく先頭に記述すること。
+※サービス再起動しないと、リスト更新されないためviews.pyにリストを持ったほうが良いかも。
+
+listA = [('', '')]
+for model in Model.objects.values_list(value, text):
+    listA.append(model)
+
+class Form(forms.ModelForm):
+    項目A = forms.ChoiceField(label='ラベル', choices=listA, widget=forms.Select(attrs={'size': 1, 'class': 'form-select'}, initial='初期値')
+
+    class Meta:
+        model = Model
+        fields = ['項目A', '項目B', '項目C',,,]  # ここに項目を書くことでModelと結び付けられる
+        widgets = {
+            '項目B': forms.TextInput(attrs={'class': 'form-control'}),
+            '項目C': forms.DateInput(attrs={'class': 'form-control', 'type': 'date', }),
+        }
+    
+    def __init__(self, 引数, **kwargs):
+        super(モデルフォーム名, self).__init__(**kwargs)
+        self.第二階層 = kwargs.pop('hoge', 値)
+
+型一覧　※まとめる
+ChoiceField
+
+引数　※まとめる
+choices=選択肢List
+
+共通引数　※まとめる
+label='ラベル'
+initial='初期値'
+required=True,False
+widget=
+
+widget　※まとめる
+attrs　※まとめる
+HTMLのattributeのこと
+
+widgetをviewで変更
+ウィジットをviewで後から変更したい場合に使う。現時点での調査だと項目ごとにしか指定できない。(for文などで回してもよい)
+def __init__(self, 引数, **kwargs):
+    super(モデルフォーム名, self).__init__(**kwargs)
+    変数.fields['項目'].widget.attrs['attribute'] = 値
+
+attribute例
+変数.fields['項目'].widget.attrs['readonly'] = 'readonly'
+変数.fields['項目'].widget.attrs['disabled'] = 'disabled'
+変数.fields['項目'].widget.attrs['style'] = 'background-color:#000000;'
+ラジオボタン選択無効などに
+変数.fields['項目'].widget.attrs['onclick'] = 'return false'
+クリック・タッチを無効化＆タブで選択も禁止
+変数.fields['項目'].widget.attrs['style'] = pointer-events: none; display: none;'
+変数.fields['項目'].widget.attrs['tabindex'] = '-1'
+
+
+initでフォーム形式の切り替え
+条件によって、フォーム形式を変えたい場合に使う。(edit/info切り替えなど。)
+
+forms.py
+class Form(forms.Form):
+    user_type = forms.ChoiceField(label=u'会員タイプ', choices=[], widget=forms.RadioSelect())
+
+    def __init__(self, gender, **kwargs):
+        super(モデルフォーム名, self).__init__(**kwargs)
+        if gender == 'male':
+            self.fields['user_type'].choices = [('a', 'A'), ('b', 'B')]
+        else:
+            self.fields['user_type'].choices = [('c', 'C'), ('d', 'D'), ('e', 'E')]
+            self.fields['mail_magazine'] = forms.BooleanField(label=u'メルマガ購読', widget=forms.CheckboxInput())
+
+views.py
+form = Form(gender='male')
+form = Form(gender='female')
+
+
+画面上にフォームを表示。
+form = Form()
+
+新規データ初期値
+ログイン情報などviewの処理によって初期値を変えたい場合、views.py側で設定する。
+form = Form(initial=dict(
+		項目A=A,
+		項目B=B,
+		項目C=C))
+
+既存データ初期値
+POST後にさらにform表示などで、DBから取得した値を初期値とする。
+model = Model.objects.get(id=id)
+form = Form(instance=model)
+
+formのデータ取得
+request.POSTではチェックボックスをリスト型で取得できず最後の値のみになるが、cleanedならリスト型で取得できる。
+
+if request.method == 'POST': 
+    form = Form(request.POST) 
+    if form.is_valid():  # これの意味は？これの後に「cleaned_data」ができるようになる。
+        # cleaned_data['SampleChoiceFormのプロパティ名'] 
+        print(form.cleaned_data['name'])
+
+新規作成、更新
+※(data=)は省略可、ただしformのinitでパラメーターを指定してるときは必要。(initial=)ではないので注意。
+obj = Model.objects.create(id=None)
+obj = Model.objects.get(id=id)
+form = Form((data=)request.POST, instance=obj)
+form.save()
+
+入力チェック
+form(or Modelform).is_valid()
+form(or Modelform).errors
+form(or Modelform).cleaned_data
+
+
+【template】
+
+base.html
+<!doctype html>
+<html lang="ja">
+{% load staticfiles %}
+<head>
+    <title>{% block title %}{% endblock %}</title>
+
+    {% block header %}{% endblock %}
+</head>
+
+<body>
+        {% block content %}{% endblock %}
+</body>
+</html>
+
+
+テンプレートファイルを指定
+ブロックで囲まれていないところは、base.htmlに持っていかれないので、ほとんど意味のないものとなる。
+{% extends 'URL' %}
+{% block title %}タイトル{% endblock %}
+{% block header %}ヘッダー{% endblock %}
+{% block content %}内容{% endblock %}
+
+プルダウンメニュー
+<select id="id" name="name" onchange="function(value);">　プルダウンメニュー選択時処理。値はoptionタグのvalueが送信される。
+        <option value=""></option>　初期値を空にしたい場合。並び順に表示され一番上が初期表示される。「selected」で初期選択。
+        <option hidden value="{{ 変数 }}">{{ 変数 }}</option>　初期値を表示する。下のリストには重複表示されない。
+    {% for 項目 in テーブル %}　各レコードを抽出
+        <option value="{{ 項目 }}">{{ 項目 }}</option>
+        {% if テーブル.項目 == "" %}
+            <option value="{{ 項目 }}">{{ 項目 }}</option>
+        {% endif %}
+    {% endfor %}
+</select>
+
+
+
+
 【】
 【】
 【】
