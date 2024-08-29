@@ -69,28 +69,4 @@
 </div>
 <br>
 <br>
-
-<!-- これやるなら送った方が良い -->
-{% comment %}
-{% for key, value_list in data.items %}
-    {% if key == 'カテゴリー2' %}
-        {% for value in value_list %}
-            {{ value }}
-        {% endfor %}
-    {% endif %}
-{% endfor %}
-{% endcomment %}
-
-<!-- とりあえずテーブルで出してみた -->
-<table class="table table-bordered border-dark">
-    {% for key, value_list in data.items %}
-    <tr>
-        <th  class="table-info" scope="col">{{ key }}</th>
-        {% for value in value_list %}
-            <td scope="row">{{ value }}</td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-</table>
-
 {% endblock %}

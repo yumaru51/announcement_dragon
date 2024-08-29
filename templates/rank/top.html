@@ -26,37 +26,17 @@
 </table>
 <br>
 
-<!--category2-->
 <h3>ランキング登録</h3>
 {% comment %}
-<!--<div class="col-2">-->
-<!--    <select id="next_step" name="next_step" class="form-select">-->
-<!--        {% for category2 in all_category2s %}-->
-<!--            <option value="{{ app.name }}">{{ category2.category2 }}</option>-->
-<!--        {% endfor %}-->
-<!--    </select>-->
-<!--</div>-->
-<!--<button class="btn btn-primary w-10 btn-lg" type="button" onclick="location.href=''">変更管理新規登録</button>-->
-
-<!--<form action="" name="form_top_page" id="form_top_page" method="post">-->
-<!--    {% csrf_token %}-->
-<!--    <div class="form-control">-->
-<!--        <div class="row m-1">-->
-<!--            <select id="next_step1" name="next_step1" class="form-select">-->
-<!--                {% for category1 in all_category1s %}-->
-<!--                    <option value="{{ app.name }}">{{ category1.category1 }}</option>-->
-<!--                {% endfor %}-->
-<!--            </select>-->
-<!--            <select id="next_step2" name="next_step2" class="form-select">-->
-<!--                {% for category2 in all_category2s %}-->
-<!--                    <option value="{{ app.name }}">{{ category2.category2 }}</option>-->
-<!--                {% endfor %}-->
-<!--            </select>-->
-<!--            <div class="col-2"><button class="btn btn-primary mt-2" type="submit">登録</button></div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</form>-->
+{{ rankdatas.0.as_p }}
+{{ rankdatas.0.as_ul }}
+{{ rankdatas.0.as_table }}
 {% endcomment %}
+
+{{ rankdatas }}
+<br>
+<br>
+
 
 <form name="form_top_page" id="form_top_page" method="post">
     {% csrf_token %}
@@ -71,49 +51,7 @@
 </form>
 <br>
 <br>
-
-<h3>Category1</h3>
-<table class="table table-bordered border-dark">
-    <thead class="table-info">
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col">Category1</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for category1 in all_category1s %}
-            <tr>
-                <td scope="row">{{ category1.id }}</td>
-                <td scope="row">{{ category1.category1 }}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
-<br>
-
-<h3>Category2</h3>
-<table class="table table-bordered border-dark">
-    <thead class="table-info">
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col">Category1</th>
-            <th scope="col">Category2</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for category2 in all_category2s %}
-            <tr>
-                <td scope="row">{{ category2.id }}</td>
-                <td scope="row">{{ category2.category1 }}</td>
-                <td scope="row">{{ category2.category2 }}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
-<br>
-
 <img src="{% static 'img/home.jpg' %}" alt="画像の説明" />
-
 {% endblock %}
 
 
