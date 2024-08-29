@@ -9,446 +9,556 @@ EXCEL表とかに一旦データまとめて、50件くらい入れたいかも�
 　生活雑貨、収納棚、WTW-3HS、不動技研、3,5,3,4,5、軽いので移動しやすい。
 
 サービス再起動しないと、formsのリスト更新されない。formsで初期リスト宣言じゃなくてviewにしよう。
-モデル外部キー
 転職サイト、言語で調べよう。
 
 
 【めも】
 
-【API】
-QuerySet？
-QueryDict＝辞書型
+【template】というかHTML
+ラジオボタン、チェックボックス
+nameを同じにすることでグループされ、djangoではnameがkeyとなる。
+idは不要？普通は<form>や<label>で囲う？確認
 
-all　全件取得
-　Model.objects.all()
+<input type="radio" name="name" value="0">テキスト0
+<input type="radio" name="name" value="1">テキスト1
+<input type="radio" name="name" value="2">テキスト2
 
-forで1件ずつ処理＆その時の変数名
-for item in Model.objects.all()
-for record in Model.objects.all()
-for obj in Model.objects.all()
-for model_data in Model.objects.all()
-for instance in Model.objects.all()
+<input type="checkbox" name="name" value="1">テキスト1
+<input type="checkbox" name="name" value="2">テキスト2
+<input type="checkbox" name="name" value="3">テキスト3
 
-get　単一レコードを取得。複数取得された場合はエラーとなる。
-　Model.objects.get(id=request.POST["id"]).field
-getは単一レコードのため、「.field名」で値を取得できる。（filterは単一レコードでも不可）
+チェックボックスをreadonlyにする
+disabledだと薄灰色になって見にくい。readonlyは存在しない。
+<input type='checkbox' onclick='return false;'>
+<input type='checkbox' onclick='return false;' checked>
 
-filter　絞り込み機能、複数件取得
-返り値は(QueryDict)辞書型のため「.field名」で項目絞り込みできないが、
-単一項目の複数レコード取得は「.values('field')」＝辞書型、「values_list('field')」＝リスト型を使う。
-
-基礎
-　Model.objects.filter(id=request.POST["id"])
-AND検索
-　変数 = Model.objects.filter(field='条件', field='条件', field='条件')
-メソッドチェーンでもいける。絞り込み機能など動的にするならこっちがよいかも。
-　変数 = Model.objects.filter(field='条件').filter(field='条件').filter(field='条件')
-OR検索
-　queryset1 = Model.objects.filter(field1=value1)
-　queryset2 = Model.objects.filter(field2=value2)
-　result = queryset1 | queryset2
-
-絞り込み機能　条件に変数を指定
-変数で条件を指定して、動的に条件を変更する。
-condition1 = {}
-condition2 = {}
-condition3 = {}
-if request.POST['field'] is not '':
-    condition1['field'] = 'value'
-if request.POST['field'] is not '':
-    condition2['field'] = ('value', 'value')
-if request.POST['field'] is not '':
-    condition3['field__in'] = [0, 1, 2, 3]
-変数 = Model.objects.filter(**condition1).filter(**condition2).filter(**condition3)
-※field = 'value', field = ('value', 'value'), field__in = [0, 1, 2, 3],となる。 
-
-from django.db.models import Q
-　変数 = Model.objects.filter(Q(field='条件') | Q(field='条件') | ,,, | Q(field='条件')).disctinct()
-　変数 = Model.objects.filter(Q(field='条件') , Q(field='条件') , Q(field='条件'))
+日付型
+<input type="date" name="date" id="date">
+時間型
+<input type="time" name="time" id="time">
+日時型
+<input type="datetime-local" id="datetime-local" name="datetime-local" value="" min="" max="">
 
 
-件数取得
-「.count()」
-存在チェック
-「.exists()」　count() > 0 と同じ
-項目指定
-.values('field名')　※field名の指定なしで全て？型が変わるのか？
-並び
-「.order_by('項目') or ('-項目')」
-重複削除
-「.distinct()」
-先頭から件数表示
-「.first()」
-完全一致
-　(field__iexact='条件')
-部分一致(大文字小文字区別無はiをつける)※条件指定なし全件！
-　(field__contains='条件')    (field__icontains='条件')
-前方一致
-(field__startswith='条件')    (field__istartswith='条件')
-後方一致
-(field__endswith='条件')    (field__iendswith='条件')
-より大きい　以上
-(field__gt='条件')    (field__gte='条件')
-より小さい　以下
-(field__lt='条件')    (field__lte='条件')
-IN句
-(field__in=List)　※リスト型になので注意[0, 1, 2,,,]となる。こっちではない→(0, 1, 2,,,)
-BETWEEN句
-(field__range=(start, end))
+現在時刻を表示
+django テンプレートタグ 現在時刻を表示 {% now %}
+<input type="datetime-local" id="discovery_datetime" value="{% now 'Y-m-d\TH:i' %}">　フォーマット'yyyy-mm-dd tt:mm'形式
+テンプレートタグ　エスケープシーケンスは「\」
+
+ログインユーザー取得
+{{ request.user }}
+
+ログイン必須
+djangoはURLを知っていれば直接アクセス可能だが、ログイン情報でページ処理をしたい場合は、ログイン必須の設定とする。
+from django.contrib.auth.decorators import login_required
+@login_required
+
+def 関数名(requset):
+    request.user.username
+
+オプション一覧　※まとめる
+自動補完無効
+autocomplete="off"
+入力モード
+inputmode=mode
+　数値入力: numeric;
+テキストボックスにフォーカスを当てた時に全選択状態にする
+onfocus="this.select();"
 
 
-集計
-GROUP BY 項目
-ライブラリの仕様上「SELECT 項目, count('項目') as 別名 FROM テーブル名 GROUP BY 項目」となる。
-　from django.db.models import Count
-　Model.objects.filter(id=id).values('field').annotate(別名=Count('field'))
+データの受け取り　
+SELECT文・APIで指定した項目順に配列で変数へ格納される。
+[index(項目)]は「変数.項目名」と直接項目名を書いてもよい。
+件数が1件のとき[index(件数)]は省略できる。
+①NG
+TEST.[0].[0]
+②for
+for 各レコード in テーブル
+    for 各項目 in 各レコード
+        print(各項目)
+③for
+for 変数 in テーブル		#for文で各レコードを
+    print(変数.[index(項目)])	#indexで各項目を
+    print(変数.項目名)		#indexで各項目を
 
 
-IN句応用
-他のAPIで抽出したQuerySetをサブクエリにしてIN句で絞り込む
-field__inにはリスト型しか指定できない。QuerySetは不可。QuerySetのデータを指定したい場合、リスト型に変換する。
+「変数.配列番号」で取得できる。index番号に[ ]はいらない。
 
-# APIで絞り込むデータのQuerySetを作成。「.values()」で項目のみのQuerySetにする？
-テーブル名1_list = テーブル名1.objects.filter(id=id).values()
-# QuerySetからlist(仮想dict型)に変換。
-l = list(テーブル名1_list)
-# dict型からlist型に変換。「.get()」でkeyを指定して値のみのlist型に変換。
-項目_list = [d.get('key') for d in l]
-# field__inに絞り込んでリストを指定。
-テーブル名_lists = テーブル名2.objects.filter(field__in=項目_list)
+for文でループしてindex指定する。
+{% for 項目 in テーブル %}　for文で各レコードを
+    {{ 項目.配列番号 }}　indexで各項目を
+{% endfor %}
 
-raw　直接クエリ
-sql = "SELECT * FROM table"
-変数 = Model.objects.raw(sql)
+for文を使わない場合
+{{ テーブル.レコード.項目)}}
 
-【request】
 
-request.POST['name']
-get関数
-変数 = request.POST.get('key')
-
-GETかPOSTか判断
-if request.method == 'POST':
-
-【templateへの送り値】
-context,data,params / parameters
-
-context = {
-'key': value,
-'key': value,
-'key': value,
-}
-
-宣言した後からでも変更可能
-context['key'] = value
-
-【db_router.py】
-アプリ毎にデータベースを変えたい場合、
-「setting.py」で
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'app名_db': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'app名_db.sqlite3'),
+多次元辞書型変数を分解
+Modelと同じように手動で辞書型を作成してtemplateで利用したい場合、
+多次元辞書型変数宣言　実際はModelなどをforに使う
+dict = {}
+for index in range(10):
+    dict[index] = {
+        'key1': values1,
+        'key2': values2,
     }
-}
-DATABASE_ROUTERS = ['config.db_router.DBRouter']
 
-「db_router.py」で
-class DBRouter:
-    # settingで設定したDB名とアプリ(apps.pyのname)を指定
-    def db_for_read(self, model, **hints):
-        if model._meta.app_label == 'app名':
-            return 'default'
-        if model._meta.app_label == 'app名':
-            return 'app名_db'
-        return None
+中身　indexが件数のイメージ(「Modelもこうなってるよ」ってModelにまとめる。)
+dict = {0: {'key1': 'values1', 'key2': 'values2'}, 1:{'key1': 'values1', 'key2': 'values2'}, 2:{'key1': 'values1', 'key2': 'values2'},,, }
 
-    def db_for_write(self, model, **hints):
-        if model._meta.app_label == 'common':
-            return 'default'
-        if model._meta.app_label == 'app名':
-            return 'app名_db'
-        return None
-
-    def allow_relation(self, obj1, obj2, **hints):
-        if obj1._meta.app_label == 'common' and obj2._meta.app_label == 'app名':
-            return True
-        if obj1._meta.app_label == 'app名' and obj2._meta.app_label == 'app名':
-            return True
-        return None
-
-    def allow_migrate(self, db, app_label, model=None, **hints):
-        if app_label == 'auth' or app_label == 'contenttypes' or app_label == 'sessions' or app_label == 'admin' or app_label == 'common':
-            return db == 'default'
-        if app_label == 'app名':
-            return db == 'app名_db'
-        return None
-
-【Model】
-models.py細分化について
-modelsフォルダにmodelsファイルを分ける場合は「__init__」でクラスを宣言。
-
-基礎
-デフォルトのテーブル名は「app名_Model名」となる。
-「verbose_name」は省略できる(第一引数)。管理画面などで表示する名称。
-class Model(models.Model):
-    field1 = models.IntegerField('表示名', primary_key=True)
-    field2 = models.CharField('表示名', max_length=20, blank=True, null=True)
-
-    class Meta:
-        db_table = 'table名'
-
-型一覧　※まとめる
-IntegerField
-CharField
-BooleanField
-
-共通引数　※まとめる
-primary_key=True,False
-blank=True,False
-null=True,False
-default=value
-※後から追加する項目でblank,nullがTrueのものはdefaultを設定するべし。
-
-引数　※まとめる
-文字数
-max_length=桁数
-
-複合キー
-class Meta:
-    unique_together = (('複合キー1', '複合キー2'),)
-
-書込禁止の参照のみ
-class Meta:
-    managed = False
-
-外部参照
-参照先の「primary_key」と紐づく。参照先・参照元の項目名は任意。
-参照元の項目名はDB側では末尾に「_id」が自動で追加される。
-
-class Model(models.Model):
-    参照項目 = models.ForeignKey(Model, verbose_name='表示名', blank=False, null=False, on_delete=models.PROTECT)
-
-参照元の参照項目を取得する場合、「_id」をつけて他の項目同様に取得する。
-　Model.objects.get(id=id).参照項目_id
-
-参照先に接続した後、参照先のいろんな項目を取得できる。
-　Model.objects.get(id=id).参照項目
-
-同テーブル中に同テーブルへの外部参照を複数項目で行う場合、related_nameの設定が必須。
-外部参照の逆引きの際、複数項目あるとどちらかを判断できないため「related_name」で逆引きの名称を設定する。
-また参照先に対して「related_name」が全体で重複してはいけない？ため、related_nameにはModel名を含めたほうがよい。
-class 参照元Model(models.Model):
-    A = 参照先Model.ForeignKey(model, ..., related_name='参照元Model_A')
-    B = 参照先Model.ForeignKey(model, ..., related_name='参照元Model_B')
-
-逆引きの方法
-Model.objects.get(id=id).参照元Model_set.all()
+keyはindexの件数となっているので表示はほぼ不要。valueにkey,valuesを持つ多次元辞書型となる。
+{% for key, value in data.items %}
+{{ key }}{{ value }}{{ value.key1 }}{{ value.key2 }},,,
+{% endfor %}
 
 
-新規作成　まず新規レコードを確保して項目ごとに値を設定しデータを保存する。
-obj = model.objects.create(id=None)
-obj.項目 = 値
-obj.save()
+プルダウン応用
+view側でプルダウンリスト作成
+def メソッド名(request):
+    テーブル名 = テーブル名.objects.filter(項目__icontains=request.POST['name'], lost_flag=0)
+    data = ''
+    for テーブル名 in テーブル名:
+        data += '<option value="' + テーブル名.項目名 + '">' + テーブル名.項目名 + ':' + テーブル名.項目名 + '</option>'
+    ary = {
+        'data': data,
+    }
+    return JsonResponse(ary)
 
-更新　更新レコードを指定して項目ごとに値を設定しデータを更新する。
-obj = model.objects.get(id=id)
-obj.項目 = 値
-obj.save()
+HTMLを組み込んだ変数
+{{ 変数 | safe }}
 
-Model(
-field1 = value1,
-field2 = value2,
-field3 = value3,
-).save()
-
-新規作成＆更新　データがあれば更新、なければcreateして項目ごとに値を設定しデータを保存する。
-obj, created = model.objects.get_or_create(id=id)
-obj, created = model.objects.update_or_create(id=id)
-obj.項目 = 値
-obj.save()
+メールクライアント起動
+mailto:ハンドラ　ブラウザのURLバーに入力する
+mailto:address?subject&body=
 
 
-デフォルト帰り値
-objects関数でgetした際のデフォルト返り値を設定する。デフォルトは「model object (primary_key)」。
-（管理画面の表示も反映される。）
-(マスターからデータ取得する際は基本和名などを取得するので、和名をデフォルト返り値に設定すると楽。
-たとえばユーザーマスタから日本語表記の名前を取得するなど)
-
-class Model(models.Model):
-    項目A = 
-    項目B = 
-    項目C = 
-
-    def __str__(self):
-        return u'%s %s' % (self.項目B, self項目C)
-
-※ただしこの時点では文字型ではないので、文字列結合の際は「str()」で文字型とすること？
-(「.項目名」で項目まで落とし込めば型も変更されるが下記の状態ではまだ型は変わっていない。)
-    model = Model.objects.get(id=id)
-
-【form】
-formのclass内はサービス起動時に読み込まれる。initは処理で関数呼び出しされた際に読み込まれる。
-listなどの変数はファイル内の変数としてサービス起動時から保持されるので、各フォームごとではなく先頭に記述すること。
-※サービス再起動しないと、リスト更新されないためviews.pyにリストを持ったほうが良いかも。
-
-listA = [('', '')]
-for model in Model.objects.values_list(value, text):
-    listA.append(model)
-
-class Form(forms.ModelForm):
-    項目A = forms.ChoiceField(label='ラベル', choices=listA, widget=forms.Select(attrs={'size': 1, 'class': 'form-select'}, initial='初期値')
-
-    class Meta:
-        model = Model
-        fields = ['項目A', '項目B', '項目C',,,]  # ここに項目を書くことでModelと結び付けられる
-        widgets = {
-            '項目B': forms.TextInput(attrs={'class': 'form-control'}),
-            '項目C': forms.DateInput(attrs={'class': 'form-control', 'type': 'date', }),
-        }
-    
-    def __init__(self, 引数, **kwargs):
-        super(モデルフォーム名, self).__init__(**kwargs)
-        self.第二階層 = kwargs.pop('hoge', 値)
-
-型一覧　※まとめる
-ChoiceField
-
-引数　※まとめる
-choices=選択肢List
-
-共通引数　※まとめる
-label='ラベル'
-initial='初期値'
-required=True,False
-widget=
-
-widget　※まとめる
-attrs　※まとめる
-HTMLのattributeのこと
-
-widgetをviewで変更
-ウィジットをviewで後から変更したい場合に使う。現時点での調査だと項目ごとにしか指定できない。(for文などで回してもよい)
-def __init__(self, 引数, **kwargs):
-    super(モデルフォーム名, self).__init__(**kwargs)
-    変数.fields['項目'].widget.attrs['attribute'] = 値
-
-attribute例
-変数.fields['項目'].widget.attrs['readonly'] = 'readonly'
-変数.fields['項目'].widget.attrs['disabled'] = 'disabled'
-変数.fields['項目'].widget.attrs['style'] = 'background-color:#000000;'
-ラジオボタン選択無効などに
-変数.fields['項目'].widget.attrs['onclick'] = 'return false'
-クリック・タッチを無効化＆タブで選択も禁止
-変数.fields['項目'].widget.attrs['style'] = pointer-events: none; display: none;'
-変数.fields['項目'].widget.attrs['tabindex'] = '-1'
-
-
-initでフォーム形式の切り替え
-条件によって、フォーム形式を変えたい場合に使う。(edit/info切り替えなど。)
-
-forms.py
-class Form(forms.Form):
-    user_type = forms.ChoiceField(label=u'会員タイプ', choices=[], widget=forms.RadioSelect())
-
-    def __init__(self, gender, **kwargs):
-        super(モデルフォーム名, self).__init__(**kwargs)
-        if gender == 'male':
-            self.fields['user_type'].choices = [('a', 'A'), ('b', 'B')]
-        else:
-            self.fields['user_type'].choices = [('c', 'C'), ('d', 'D'), ('e', 'E')]
-            self.fields['mail_magazine'] = forms.BooleanField(label=u'メルマガ購読', widget=forms.CheckboxInput())
-
-views.py
-form = Form(gender='male')
-form = Form(gender='female')
-
-
-画面上にフォームを表示。
-form = Form()
-
-新規データ初期値
-ログイン情報などviewの処理によって初期値を変えたい場合、views.py側で設定する。
-form = Form(initial=dict(
-		項目A=A,
-		項目B=B,
-		項目C=C))
-
-既存データ初期値
-POST後にさらにform表示などで、DBから取得した値を初期値とする。
-model = Model.objects.get(id=id)
-form = Form(instance=model)
-
-formのデータ取得
-request.POSTではチェックボックスをリスト型で取得できず最後の値のみになるが、cleanedならリスト型で取得できる。
-
-if request.method == 'POST': 
-    form = Form(request.POST) 
-    if form.is_valid():  # これの意味は？これの後に「cleaned_data」ができるようになる。
-        # cleaned_data['SampleChoiceFormのプロパティ名'] 
-        print(form.cleaned_data['name'])
-
-新規作成、更新
-※(data=)は省略可、ただしformのinitでパラメーターを指定してるときは必要。(initial=)ではないので注意。
-obj = Model.objects.create(id=None)
-obj = Model.objects.get(id=id)
-form = Form((data=)request.POST, instance=obj)
-form.save()
-
-入力チェック
-form(or Modelform).is_valid()
-form(or Modelform).errors
-form(or Modelform).cleaned_data
-
-
-【template】
-
-base.html
-<!doctype html>
-<html lang="ja">
-{% load staticfiles %}
-<head>
-    <title>{% block title %}{% endblock %}</title>
-
-    {% block header %}{% endblock %}
-</head>
-
-<body>
-        {% block content %}{% endblock %}
-</body>
-</html>
-
-
-テンプレートファイルを指定
-ブロックで囲まれていないところは、base.htmlに持っていかれないので、ほとんど意味のないものとなる。
-{% extends 'URL' %}
-{% block title %}タイトル{% endblock %}
-{% block header %}ヘッダー{% endblock %}
-{% block content %}内容{% endblock %}
-
-プルダウンメニュー
-<select id="id" name="name" onchange="function(value);">　プルダウンメニュー選択時処理。値はoptionタグのvalueが送信される。
-        <option value=""></option>　初期値を空にしたい場合。並び順に表示され一番上が初期表示される。「selected」で初期選択。
-        <option hidden value="{{ 変数 }}">{{ 変数 }}</option>　初期値を表示する。下のリストには重複表示されない。
-    {% for 項目 in テーブル %}　各レコードを抽出
-        <option value="{{ 項目 }}">{{ 項目 }}</option>
-        {% if テーブル.項目 == "" %}
-            <option value="{{ 項目 }}">{{ 項目 }}</option>
-        {% endif %}
-    {% endfor %}
+複数リスト
+Ctrlキーを押しながら複数選択できるリスト設置
+<select id="id" name="name" size="5" multiple>
+    <option value="value">text</option>
 </select>
 
+リストで取得できる
+　変数 = $('#ID').val()　jQuery
+　変数[0],変数[1],変数[2],,,,
+件数を取得
+　$('#ID option:selected').length　jQuery
+チェックをつける
+　document.getElementById('id').selected
+
+空白コード　4種類ある
+&emsp;
+&nbsp;&nsp;&thinsp;  
 
 
+loading画面について
+ロード中のgif画像を「display:none」で設定しておき、javascriptの処理で表示、非表示を切り替える。
+(divなしにはできないか？imgにidやstyleを追加すれば？)
 
-【】
-【】
-【】
-【】
+<div id="loading_gif" style="position:absolute; left:50%; top:20%; margin-left:-300px; margin-top:300px; z-index: 10; display: none">
+    <img src="{% static 'img/loading/earth.gif' %}">
+</div>
+
+処理の最初で「show()」で表示にする。
+if($("#loading_gif") != null){
+    $("#loading_gif").show();
+}
+
+処理後(.done)などに「fadeOut()」で非表示にする。
+.done(function(data){
+    if($("#loading_gif") != null){
+        $("#loading_gif").fadeOut();　//呼び出し中に表示するgifをフェードアウト
+    }
+    alert(data.massage)
+})
+
+href応用
+リンククリック時にjavascript実行
+　<a href="javascript:処理;">
+idに値を格納＆form送信
+　<a href="javascript:$(#id).val({{ key }});form.submit()">
+
+変数valueの改行コードを有効にする
+{{ value|linebreaksbr }}
+
+
+for
+組み込みテンプレートタグのfor内で用意されている変数
+forloop.counter　　ループの現在の繰り返し(1インデックス)
+forloop.counter0　　ループの現在の繰り返し(0インデックス)
+forloop.revcounter　　ループの終了からの反復回数(1インデックス)
+forloop.revcounter0　　ループの終了からの反復回数(0インデックス)
+forloop.first　　ループの開始真
+forloop.last　　ループの終了真
+forloop.parentloop　　入れ子になったループの場合は、現在のループを囲むループ
+
+
+【form】
+formタグは入れ子にできない
+
+<form>は基本<button>でsubmitするとき<button>を<form>内側に入れて紐づけを行うが、
+<form>にidをつけることで、<form>外でも紐づけを行うことができる。<button>のform属性と。
+逆に言えば<form>内側に<button>を仕込めば<button>にform属性は不要。
+　<form action="URL" name="fuge" id="hoge" method=""></form>
+　<button class="" type="submit" form="hoge">submit</button>
+
+<form>は基本<form>に送り先(action属性)を記述するが、<button>にformaction属性を追加すれば、<button>側で送り先を記述できる。
+これによりボタンを複数置いて、ボタンごとに送り先を変更することができる。
+また<form>にaction属性があっても、<button>にformaction属性がある場合は、formactionが優先される。
+　<button class="" type="submit" formaction="URL" from="hoge">submit</button>
+
+
+ボタンの種類
+<button type="button">	何もしない、定義のみ。通常はonclickにjavascriptの処理を書く。
+<button type="subit">	form送信
+<button type="reset">	リセット
+
+javascript処理でページ遷移
+<button type="button" onclick="location.href='https://www.iskweb.co.jp/'">反応するボタン</button>
+<button type="button" onclick="window.history.back();">戻るボタン</button>
+
+
+【request】
+データの受け渡し　request.POST(QueryDict)
+エントリー処理などはPOST送信する。値がなくても処理が続行できる。
+requestは{ key1: value1, key2: value2,,,, }辞書型で格納されている。keyはname属性となる。
+
+html上に同nameが複数ある場合（ファイルやチェックボックスなど）getlistでlistとして取得する。単一にしたいときはforなどを使う。
+　変数 = request.POST.getlist('name')
+
+POSTはrequestデータ、GETはURLパラメータという理解！
+
+存在チェック①
+if 'key' in request.POST
+    print(request.POST['key'])
+存在チェック②
+get()メソッドで判断・置換が可能。配列からkey指定で値をとりだすメソッド。
+「default=」は省略可能。また第2パラメータ自体も省略可能。その場合はdefault値None。
+「request.POST['name']」はNoneでエラーだが、下記はNone取得できる。
+　request.GET.get('key', default=None)
+　request.POST.get('key', default=None)
+
+
+【views】
+host名を取得
+from socket import gethostname 
+gethostname() 
+
+半角全角の変換　ライブラリを利用する。
+% pip install mojimoji
+
+
+if
+falseのとき
+1. if cond is not True:
+2. if not cond:
+
+式が成り立つとき処理①を行う。is は「=」。
+　変数 = 処理① if 式 is 判別式 else 処理②
+　変数 = 処理① if 式 is not 判別式 else 処理②
+　例　変数 = "" if 変数 is None else 変数
+
+否定の条件式を設定したいとき、
+if not A and B
+Aは否定。Bは肯定となる。
+
+
+フォーマット関数
+　{インデックス番号:書式指定}.format(値)
+例　"{0}さんの身長は{1}cmです。{0}さんの体重は{2}kgです。".format("山田", 190, 105.3)
+　　山田さんの身長は190cm、体重は105.3kgです。
+
+「,」金額表記形式。フォーマットが1つの場合省略できる。
+"{:,}".format(値)
+
+strftime関数
+日時変数.strftime("%Y-%m-%d")
+文字列変数.strptime("", "%Y年%#m月%#d日")
+
+
+組み込み関数一覧　※まとめる
+input()　入力された値を文字列として返す
+print()　指定された値を出力する
++		結合　同じ型どうしで結合する。
+,		連結　出力の際に半角スペースで結合する。型を意識しなくてもよい
+sep引数		複数出力する際の区切り文字
+end引数		改行せずに出力など
+open()　ファイルを開く
+str()　文字列型に変換する
+int()　整数型に変換する
+len()　文字列、リスト、タプル、辞書の長さ(要素数)を返す
+raw文字列で無効化
+r'filepath'でエスケープシーケンス無効化
+/t,/n　タブ,改行
+
+
+アプリ起動
+Popen関数　プロセスをオープン
+import subprocess  # コマンド実行モジュール
+subprocess.Popen([‘start‘, r'filepath'], shell=True)
+
+起動プログラム指定
+subprocess.Popen([r'programpath', r'filepath'])
+
+フォルダを開く
+subprocess.Popen([‘explorer‘, r'folderpath'])
+
+
+連続で動的に関数を呼び出し、リストに格納
+①文字列の箇所を変数にすることで動的に関数呼び出しができる
+function_name = '文字列' + '文字列'
+globals()[function_name]()
+
+②リスト変数を作成しておき、文字列変数をループ処理でリストに追加する
+function_list = ['']
+for 変数 in 変数:
+    function_name = 変数 + '_info'
+    function_list.append(globals()[function_name](パラメータ))
+
+
+呼び出し関数でrenderの返り値を変数に格納して扱う
+body要素取り出し
+　変数.content
+renderの返り値はbytes型なのでstr型に変換
+　bytes型をdecodeでstr型に　変数.decode()
+　str型をencodeでbytes型に　変数.encode()
+
+呼び出し関数でjsonの返り値を変数に格納して扱う
+body要素取り出し
+　変数.content
+jsonの返り値はbytes型なのでstr型に変換
+　bytes型をdecodeでstr型に　変数.decode()
+　str型をencodeでbytes型に　変数.encode()
+HTML構文に書き出し
+　imoprt json
+　変数 = json.loads(変数)
+　変数['key']
+
+
+関数の設定
+・POSTからでしかアクセスできない「@require_POST」
+・ログインしていないとアクセスできない「@login_required」
+可変長引数（*args, **kwargs）
+*args: 複数の引数をタプルとして受け取る
+**kwargs: 複数のキーワード引数を辞書として受け取る
+ 
+
+カンマ自動付与
+「settings.py」
+「humanize」アプリを追加する
+INSTALLED_APPS = [
+    ...
+    'django.contrib.humanize',
+    ...
+]
+カンマ自動付与の位置を設定
+NUMBER_GROUPING = 3
+
+「template.html」
+フィルターで指定
+{{ value | intcomma }} 
+
+
+【return】
+HttpResponse　ほんの細かな処理で「.html」も作成したくないとき。
+htmlの中身を引数として渡すと、html形式で生成表示する。
+    from django.http import HttpResponse
+
+    test = DB.objects.all()
+    for test in test:
+        if test.user.username == request.user.username:
+            return render(request, 'fms/parts/temporary_response/make_plantia_import_excel_page.html')
+    return HttpResponse("<script>alert('アラート!');window.location.href = '../temporary_response_menu/';</script>")
+
+
+redirect　既存のページに飛ばしたいとき。
+from django.shortcuts import redirect
+    return redirect('url.name', パラメータ)
+
+
+render　指定されたテンプレートをレンダリングし、コンテキストデータを埋め込んだHTTPレスポンス
+redirect　別のURLにリダイレクトするHTTPレスポンス
+HttpResponse　任意の内容でHTTPレスポンスを返します。通常はカスタムレスポンスを作成する場合に使用される。
+JsonResponse　jsonでエンコードされたデータを含むHTTPレスポンス。ajaxリクエストなどに使用。
+
+get_object_or_404　指定されたクエリに一致するオブジェクトを取得します。一致するオブジェクトがない場合、404エラーを返します。
+get_list_or_404　クエリに一致するオブジェクトのリストを取得します。リストが空の場合、404エラーを返します。
+例: posts = get_list_or_404(Post, published=True)
+HttpResponseRedirect　
+
+
+【log】
+handler: 出力先や使用するフォーマット、ファイル名など各種設定を用意
+formatters: 具体的な出力時のフォーマットを設定
+loggers: 使用するloggerの定義。上で設定したhandlerやformatterを紐付ける
+
+import os
+
+# ログ保存用設定
+# LOG_ROOT = r'//Ydomnserv/common/部門間フォルダ/FacilityData/test'
+LOG_ROOT = 'C:\\python_tool_development/isk-tools'
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "info": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOG_ROOT + "/logs/django_info.log",
+            "formatter": "verbose",
+            "maxBytes": 1024 * 1024 * 1,  # ファイル容量
+            "backupCount": 5,  # 最大保持数
+        },
+        "error": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOG_ROOT + "/logs/django_error.log",
+            "formatter": "verbose",
+            "maxBytes": 1024 * 1024 * 1,  # ファイル容量
+            "backupCount": 5,  # 最大保持数
+        },
+    },
+    "formatters": {
+        "verbose": {
+            "format": "\t".join(
+                [
+                    "[%(levelname)s]",  # DJANGO_LOG_LEVEL
+                    "%(asctime)s",  # 時間
+                    "%(name)s",  # loggerのname
+                    "%(message)s",  #message
+                ]
+            )
+        },
+    },
+    "loggers": {
+        "info": {
+            "handlers": ["info"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "propagate": True,
+        },
+        "error": {
+            "handlers": ["error"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "ERROR"),
+            "propagate": True,
+        },
+    },
+}
+
+
+各viewに例外処理を仕込む。
+出力する内容は行数が長くなるので共通関数に分ける。
+
+try:
+    処理
+except Exception:
+    例外処理共通関数(request, traceback.format_exc())
+    raise
+
+
+ログに出力する内容を共通関数に書く。
+
+def 例外処理共通関数(request, traceback_str):
+    imort inspect
+    import logging
+
+# 呼び出し元関数、ファイル名、行数を取得
+f_obj = inspect.currentframe().f_back
+func_name = f_obj.f_code.co_name
+file_name = os.path.basename(f_obj.f_code.co_filename)
+lineno = str(f_obj.f_lineno)
+
+# 情報文字列化
+request_str = ',request:' + str(request) + ',POST:' + str(request.POST) + ',GET:' + str(request.GET)
+traceback_str = ',exception:' + traceback_str
+
+# ログ出力
+log_msg = '[' + file_name + ':' + lineno + '].' + func_name + ':' + request_str + traceback_str
+logger = logging.getLogger("error")
+logger.error(log_msg)
+return
+
+
+【session】
+defaultのDBの「django_session」
+
+使い方
+隠しパラメータhiddenなどはユーザーが改ざんできるのでよくない。
+干渉されてこまる重要なデータを受け渡す場合、セッション変数を利用すること。関数間で変数の受け渡しができる。
+requestの中に埋め込む場合、requestをパラメーターで送らなければいけない。
+
+# 保存 関数aで
+request.session['hoge'] = hoge
+# 取得 関数bで
+name = request.session['hoge']
+# Noneの可能性がある場合は、上記だとエラーになるため「get」してNoneも取得
+name = request.session.get('hoge')
+
+設定
+利用するにあたってsettings.pyで設定が必要(デフォルトで設定されている)
+・INSTALLED_APPS に "django.contrib.sessions" が含まれていること
+・MIDDLEWARE に "django.contrib.sessions.middleware.SessionMiddleware" が含まれていること
+・SESSION_ENGINE が定義されていないか、または設定値が django.contrib.sessions.backends.db であること
+
+有効時間
+settings.pyに追加。秒数を設定
+SESSION_COOKIE_AGE = 3600
+
+削除
+関数でセッション削除
+del request.session['セッション名']
+request.session.clear()
+
+コマンドでDBから期限切れのセッションを削除
+python manage.py clearsessions
+
+
+【settings.py】
+setting.pyを環境ごとに切り分ける
+
+「manage.py」
+# ホスト名によって、設定ファイルを切り替える。
+from socket import gethostname
+
+    host_name = gethostname()
+    if host_name == 'YWEBSERV1':
+        print('本番環境起動')
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.settings_product')
+    elif host_name == 'I7161DD6':
+        print('テスト環境起動')
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.settings_test')
+    else:
+        print('開発環境起動')
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.settings_develop')
+
+「wsgi.py」
+# ホスト名によって、設定ファイルを切り替える。
+from socket import gethostname
+
+host_name = gethostname()
+if host_name == 'YWEBSERV1':
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings.settings_product'
+elif host_name == 'I7161DD6':
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings.settings_test'
+else:
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings.settings_develop'
+
+「settigns_環境.py」
+ホスト名によって、設定ファイルを切り替える。
+環境ごとにsettingsファイルを作成し、共通の処理はすべてのファイルでimportする。
+
+from .settings_common import *
+
+# 動作許可ホスト(セキュリティ用設定)
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'ywebserv1',
+]
+
+
+【ファイルアップロード】
+nameは記述しない？,idは別にする？,同じにすることでグループする。
+<input type="file" id="id" name="name">
+
 
 
 【明日やること】
