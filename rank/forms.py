@@ -42,3 +42,12 @@ class RankDataForm(forms.ModelForm):
                   'functionality', 'repeat', 'category']
         widgets = {}
 
+    def __init__(self, *args, **kwargs):
+        category1_choices = kwargs.pop('category1_choices', None)
+        category2_choices = kwargs.pop('category2_choices', None)
+        super(RankDataForm, self).__init__(*args, **kwargs)
+
+        if category1_choices:
+            self.fields['category1'].choices = category1_choices
+        if category2_choices:
+            self.fields['category2'].choices = category2_choices

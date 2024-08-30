@@ -2,6 +2,8 @@
 【今日やること】
 EXCEL表とかに一旦データまとめて、50件くらい入れたいかも、、、、
 
+カテゴリー登録！
+
 すでにデータがある場合は、新規作成できないように！
 更新削除の処理！
 画像をアップロードできるように！製品名がファイル名となること！
@@ -9,16 +11,33 @@ EXCEL表とかに一旦データまとめて、50件くらい入れたいかも�
 登録処理したい。
 　生活雑貨、収納棚、WTW-3HS、不動技研、3,5,3,4,5、軽いので移動しやすい。
 
-サービス再起動しないと、formsのリスト更新されない。formsで初期リスト宣言じゃなくてviewにしよう。
 転職サイト、言語で調べよう。
 めもにまとめる「python\【マニュアル】配列変数ごちゃごちゃになるので整理.xlsx」
 
 
 【めも】
+
+【views】form
+コンボボックスのoptionをModelから取得。
+Modelformのchoicesだと、サービス再起動しないと更新されない。
+formsで初期リスト宣言じゃなくてviewで取得すること。
+①forms.py
+    def __init__(self, *args, **kwargs):
+        field名_choices = kwargs.pop('field名_choices', None)
+        super(ModelForm名, self).__init__(*args, **kwargs)
+        if field名_choices:
+            self.fields['field名'].choices = field名_choices
+views.py
+    form = ModelForm(initial=dict(),field名_choices=field名_list)  # カスタム引数
+
+②views.py
+form = ModelForm()
+ModelForm.fields['field'].choices = field_list
+
+
 【ファイルアップロード】
 nameは記述しない？,idは別にする？,同じにすることでグループする。
 <input type="file" id="id" name="name">
-
 
 
 【明日やること】
