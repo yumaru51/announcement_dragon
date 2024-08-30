@@ -26,13 +26,21 @@
 </table>
 <br>
 
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
 <h3>ランキング登録</h3>
 <form name="form_top_page" id="form_top_page" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-control">
         <div class="row m-1">
-                {% for rankdatas in rankdatas %}
-                <div class="col-2 px-0">{{ rankdatas.label }}{{ rankdatas }}</div>
+                {% for rank_data_form in rank_data_form %}
+                <div class="col-2 px-0">{{ rank_data_form.label }}{{ rank_data_form }}</div>
                 {% endfor %}
                 <div class="col-2"><button class="btn btn-primary mt-2" type="submit">登録</button></div>
                 <input class="form-control" type="file" name="product_pict">
