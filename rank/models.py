@@ -43,4 +43,5 @@ class RankData(models.Model):
 
     class Meta:
         db_table = 'rank_t_rankdata'
+        unique_together = (('user_name', 'category1', 'category2'),)
 

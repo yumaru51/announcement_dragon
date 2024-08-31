@@ -1,5 +1,6 @@
 from django import forms
 from .models import Category1, Category2, RankData
+from django.core.exceptions import ValidationError
 
 
 # リスト固定値（Modelから取る場合はinitに）
@@ -38,3 +39,13 @@ class RankDataForm(forms.ModelForm):
         super(RankDataForm, self).__init__(*args, **kwargs)
         self.fields['category1'].choices = Category1.objects.all().values_list('category1', 'category1')
         self.fields['category2'].choices = Category2.objects.all().values_list('category2', 'category2')
+
+    def clean(self):
+        cleaned_data = super().clean()
+        user_name = cleaned_data.get("user_name")
+        category1 = cleaned_data.get("category1")
+        category2 = cleaned_data.get("category2")
+
+        if RankData.objects.filter(user_name=user_name, category1=category1, category2=category2).exists():
+            raise ValidationError("同じユーザー名、カテゴリー1、カテゴリー2の組み合わせは既に存在しています。")
+

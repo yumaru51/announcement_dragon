@@ -69,4 +69,32 @@
 </div>
 <br>
 <br>
+<!-- dropdown -->
+<div class="btn-group dropright">
+    <button class="btn btn-secondary dropdown-toggle mt-2" type="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+        ドロップダウン
+    </button>
+    <div class="dropdown-menu p-3" style="max-width: 300px;">
+        <h6 class="dropdown-header">ドロップダウンメニューの見出し</h6>
+        <form class="px-4 py-3">
+            <div class="form-group">
+                <label for="address">メールアドレス</label>
+                <input type="email" class="form-control" placeholder="email@example.com" id="address">
+                <label for="password">パスワード</label>
+                <input type="password" class="form-control" placeholder="Password" id="password">
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="login">
+                <label class="form-check-label" for="login">ログイン情報を記憶</label>
+            </div>
+            <button type="submit" class="btn btn-secondary">ログイン</button>
+        </form>
+        <div class="dropdown-divider"></div>
+        <p>TEST</p>
+        <span class="dropdown-item-text">非リンクテキスト</span>
+        <a class="dropdown-item" href="#">初めての方</a>
+        <a class="dropdown-item" href="#">パスワードをお忘れの方</a>
+    </div>
+</div>
 {% endblock %}

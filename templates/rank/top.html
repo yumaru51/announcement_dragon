@@ -5,6 +5,43 @@
 {% block header %}{% endblock %}
 
 {% block content %}
+
+{% if rank_data_form.errors %}
+    {% for field, errors in rank_data_form.errors.items %}
+        {% for error in errors %}
+            {% if "already exists" not in error %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<h3>ランキング登録</h3>
+<form name="form_top_page" id="form_top_page" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-control">
+        <div class="row m-1">
+                {% for rank_data_form in rank_data_form %}
+                <div class="col-2 px-0">{{ rank_data_form.label }}{{ rank_data_form }}</div>
+                {% endfor %}
+                <div class="col-2"><button class="btn btn-primary mt-2" type="submit">登録</button></div>
+                <input class="form-control" type="file" name="product_pict">
+<!--                <label class="col-2 btn btn-primary">Choose file <input type="file" hidden></label>-->
+        </div>
+    </div>
+</form>
+<br>
+<br>
 <h3>ランキングを見る</h3>
 <table class="table table-bordered border-dark">
     <thead class="table-info">
@@ -24,30 +61,6 @@
     {% endfor %}
     </tbody>
 </table>
-<br>
-
-{% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-      <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
-
-<h3>ランキング登録</h3>
-<form name="form_top_page" id="form_top_page" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="form-control">
-        <div class="row m-1">
-                {% for rank_data_form in rank_data_form %}
-                <div class="col-2 px-0">{{ rank_data_form.label }}{{ rank_data_form }}</div>
-                {% endfor %}
-                <div class="col-2"><button class="btn btn-primary mt-2" type="submit">登録</button></div>
-                <input class="form-control" type="file" name="product_pict">
-<!--                <label class="col-2 btn btn-primary">Choose file <input type="file" hidden></label>-->
-        </div>
-    </div>
-</form>
 <br>
 <br>
 <img src="{% static 'img/home.jpg' %}" alt="画像の説明" />

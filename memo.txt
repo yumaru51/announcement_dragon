@@ -1,13 +1,10 @@
 
 【今日やること】
-●Formの変数名聞く！インスタンス化するという
-　form、rank_data_form、(_でつなぐこと！)
+
+ランキングを見る、がランキングデータじゃなくて、カテゴリーデータなんよな。
+
 ●ランキング登録！
 　生活雑貨、収納棚、WTW-3HS、不動技研、3,5,3,4,5、軽いので移動しやすい。
-　項目毎の必須設定。　requiredはデフォルトTrueになってる！
-
-　画像ファイルなしで登録はNGに！
-　すでにデータがある場合は、新規作成できないように！
 　更新削除の処理！
 
 ●カテゴリー登録！
@@ -17,28 +14,7 @@
 
 
 【めも】
-【views】form
-コンボボックスのoptionをModelから取得。
-Modelformのchoicesだと、サービス再起動しないと更新されない。
-formsで初期リスト宣言じゃなくてviewで取得すること。
-①forms.py
-    def __init__(self, *args, **kwargs):
-        super(RankDataForm, self).__init__(*args, **kwargs)
-        self.fields['field名'].choices = Model名.objects.all().values_list('値', '表示')
-
-②forms.py
-    def __init__(self, *args, **kwargs):
-        field名_choices = kwargs.pop('field名_choices', None)
-        super(ModelForm名, self).__init__(*args, **kwargs)
-        if field名_choices:
-            self.fields['field名'].choices = field名_choices
-views.py
-    form = ModelForm(initial=dict(),field名_choices=field名_list)  # カスタム引数
-
-③views.py
-form = ModelForm()
-ModelForm.fields['field'].choices = field_list
-
+ChoiceFieldの初期値件、西原さんに、、、
 
 【ファイルアップロード】
 nameは記述しない？,idは別にする？,同じにすることでグループする。
