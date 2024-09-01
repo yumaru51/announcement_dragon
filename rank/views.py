@@ -7,10 +7,9 @@ from django.contrib import messages
 
 def top(request):
     category_dict = {}
-    for category_data in Category2.objects.all():
+    for category_data in Category1.objects.all():
         category_dict[str(category_data.id)] = {
             'category1': category_data.category1,
-            'category2': category_data.category2,
         }
 
     if request.method == 'POST':
@@ -56,15 +55,21 @@ def top(request):
     return render(request, 'rank/top.html', context)
 
 
-def detail(request, category1, category2):
+def detail(request, category1):
+    if request.method == 'POST':
+        # 商品説明更新
+        category2 = request.POST['category2']
+        category = request.POST['category']
+        obj = RankData.objects.get(user_name='yumaru51', category1=category1, category2=category2)
+        obj.category = category
+        obj.save()
 
-    rank_records = RankData.objects.get(user_name='yumaru51', category1=category1, category2=category2)
+    rank_records = RankData.objects.filter(user_name='yumaru51', category1=category1)
+    if not rank_records.exists():
+        messages.error(request, 'データがありません。')
     data = {
         'user_name': 'yumaru51',
-        '製品名': ['東京都', '大阪府'],
-        'メーカー': ['東京都', '大阪府'],
         'rank_records': rank_records,
     }
     return render(request, 'rank/detail.html', data)
-
 

@@ -6,8 +6,18 @@
 
 {% block content %}
 <h3>データ一覧</h3>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
 <!-- card　タブ変えたときの枠の高さを統一したい -->
 <div id="card" class="row" style="margin-top:-60px; padding-top:60px;">
+    {% for column in rank_records %}
     <div class="col-sm-3">
         <div class="card" style="max-width: 25rem">
             <div class="card-header">
@@ -23,78 +33,83 @@
                     </li>
                 </ul>
             </div>
+
             <div class="tab-content mt-3" style="max-height: 50rem">
+
                 <div class="tab-pane fade show active" id="No1">
                     <img class="card-img-top"
-                         src="{% static 'img/'|add:rank_records.product_name|add:'.jpg' %}" alt="...">
+                         src="{% static 'img/'|add:column.product_name|add:'.jpg' %}" alt="...">
                     <div class="card-body">
-                        <h4 class="card-title">{{ rank_records.product_name }}</h4>
-                        <p class="card-text">{{ rank_records.maker }}</p>
+                        <h4 class="card-title">{{ column.product_name }}</h4>
+                        <p class="card-text">{{ column.maker }}</p>
+                        <p class="card-text">{{ column.category }}</p>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><a href="#" class="badge badge-success">更新</a></li>
-                            <li class="list-group-item"><a href="#" class="badge badge-success">削除</a></li>
+                            <li class="list-group-item"><a href="#" class="badge bg-success">更新</a></li>
+                            <li class="list-group-item"><a href="#" class="badge bg-success">削除</a></li>
                         </ul>
                     </div>
                 </div>
+
                 <div class="tab-pane fade" id="status">
                     <img class="card-img-top"
-                         src="{% static 'img/'|add:rank_records.product_name|add:'.jpg' %}" alt="...">
+                         src="{% static 'img/'|add:column.product_name|add:'.jpg' %}" alt="...">
                     <div class="card-body">
-                        <h4 class="card-title">{{ rank_records.product_name }}</h4>
-                        <p class="card-text">{{ rank_records.maker }}</p>
+                        <h4 class="card-title">{{ column.product_name }}</h4>
+                        <p class="card-text">{{ column.maker }}</p>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><a href="#" class="badge badge-success">更新2</a></li>
-                            <li class="list-group-item"><a href="#" class="badge badge-success">削除2</a></li>
+                            <li class="list-group-item"><a href="#" class="badge bg-success">更新2</a></li>
+                            <li class="list-group-item"><a href="#" class="badge bg-success">削除2</a></li>
                         </ul>
                     </div>
                 </div>
+
                 <div class="tab-pane fade" id="level">
                     <img class="card-img-top"
-                         src="{% static 'img/'|add:rank_records.product_name|add:'.jpg' %}" alt="...">
+                         src="{% static 'img/'|add:column.product_name|add:'.jpg' %}" alt="...">
                     <div class="card-body">
-                        <h4 class="card-title">{{ rank_records.product_name }}</h4>
-                        <p class="card-text">{{ rank_records.maker }}</p>
+                        <h4 class="card-title">{{ column.product_name }}</h4>
+                        <p class="card-text">{{ column.maker }}</p>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><a href="#" class="badge badge-success">更新3</a></li>
-                            <li class="list-group-item"><a href="#" class="badge badge-success">削除3</a></li>
+                            <li class="list-group-item"><a href="#" class="badge bg-success">更新3</a></li>
+                            <li class="list-group-item"><a href="#" class="badge bg-success">削除3</a></li>
                         </ul>
                     </div>
                 </div>
+
             </div>
             <div class="card-footer">
-                ONEPIECEキャラクター一覧
+                {{ column.category2 }}
+                <!-- dropdown -->
+                <div class="btn-group dropright">
+                    <button class="btn btn-secondary dropdown-toggle mt-2" type="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        更新
+                    </button>
+                    <div class="dropdown-menu p-3" style="max-width: 300px;">
+                        <h6 class="dropdown-header">ドロップダウンメニューの見出し</h6>
+                        <form class="px-4 py-3" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="category">商品紹介</label>
+                                <input type="text" id="category2" name="category2" value="{{ column.category2 }}" hidden>
+                                <textarea class="form-control" id="category" name="category" rows="4" cols="50" placeholder="{{ column.category }}"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">更新</button>
+                        </form>
+
+                        <div class="dropdown-divider"></div>
+                        <p>TEST</p>
+                        <span class="dropdown-item-text">非リンクテキスト</span>
+                        <a class="dropdown-item" href="#">初めての方</a>
+                        <a class="dropdown-item" href="#">パスワードをお忘れの方</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    {% endfor %}
 </div>
 <br>
 <br>
-<!-- dropdown -->
-<div class="btn-group dropright">
-    <button class="btn btn-secondary dropdown-toggle mt-2" type="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-        ドロップダウン
-    </button>
-    <div class="dropdown-menu p-3" style="max-width: 300px;">
-        <h6 class="dropdown-header">ドロップダウンメニューの見出し</h6>
-        <form class="px-4 py-3">
-            <div class="form-group">
-                <label for="address">メールアドレス</label>
-                <input type="email" class="form-control" placeholder="email@example.com" id="address">
-                <label for="password">パスワード</label>
-                <input type="password" class="form-control" placeholder="Password" id="password">
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="login">
-                <label class="form-check-label" for="login">ログイン情報を記憶</label>
-            </div>
-            <button type="submit" class="btn btn-secondary">ログイン</button>
-        </form>
-        <div class="dropdown-divider"></div>
-        <p>TEST</p>
-        <span class="dropdown-item-text">非リンクテキスト</span>
-        <a class="dropdown-item" href="#">初めての方</a>
-        <a class="dropdown-item" href="#">パスワードをお忘れの方</a>
-    </div>
-</div>
+
 {% endblock %}

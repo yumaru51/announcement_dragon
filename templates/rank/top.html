@@ -48,15 +48,13 @@
     <tr>
         <th scope="col"></th>
         <th scope="col">カテゴリー1</th>
-        <th scope="col">カテゴリー2</th>
     </tr>
     </thead>
     <tbody>
     {% for key, value in category_dict.items %}
     <tr>
-        <td scope="row"><a href="{% url 'detail' value.category1 value.category2 %}">開く</a></td>
+        <td scope="row"><a href="{% url 'detail' value.category1 %}">開く</a></td>
         <td>{{ value.category1 }}</td>
-        <td>{{ value.category2 }}</td>
     </tr>
     {% endfor %}
     </tbody>
@@ -65,5 +63,4 @@
 <br>
 <img src="{% static 'img/home.jpg' %}" alt="画像の説明" />
 {% endblock %}
-
 
