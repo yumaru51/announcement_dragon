@@ -48,14 +48,30 @@
 <body class="pt-5">
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-        <!--todo プロジェクトのトップページ　URLパラメーターで送れない-->
-        <a class="navbar-brand" href="{% url 'top' %}">TOP</a>
+
+<!--ナビゲーションバーのトグル機能、あってるのかいつか確認はしたいけど、、、-->
+        <!--こいつなに？-->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <!--太文字になる＾＾-->
+        <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdownMenu" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">各種ページ</a>
+        <!--ドロップダウンメニュー-->
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+            <a class="dropdown-item" href="#">映画鑑賞</a>
+            <a class="dropdown-item" href="#">夏の暑さ対策</a>
+            <a class="dropdown-item" href="#">睡眠向上</a>
+            <a class="dropdown-item" href="#">登山</a>
+            <a class="dropdown-item" href="#">ランニング</a>
+        </div>
+
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item active">
+                    <a class="nav-link" aria-current="page" href="{% url 'top' %}">TOP</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="">(工事中)ホーム</a>
                 </li>
                 <li class="nav-item">
