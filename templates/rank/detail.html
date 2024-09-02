@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}詳細画面{% endblock %}
-{% block header %}{% endblock %}
+{% block header %}<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>{% endblock %}
 
 {% block content %}
 <h3>データ一覧</h3>
@@ -111,5 +111,32 @@
 </div>
 <br>
 <br>
+
+
+<canvas id="myRadarChart" width="400" height="400"></canvas>
+<script>
+var ctx = document.getElementById('myRadarChart').getContext('2d');
+var myRadarChart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+        labels: ['項目1', '項目2', '項目3', '項目4', '項目5'],
+        datasets: [{
+            label: 'データセット 1',
+            data: [65, 59, 90, 81, 56],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scale: {
+            ticks: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+
 
 {% endblock %}

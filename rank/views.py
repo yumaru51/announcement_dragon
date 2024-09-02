@@ -28,9 +28,6 @@ def top(request):
             obj = RankData.objects.create(id=None)
             request_form = RankDataForm(data=request.POST, instance=obj)
             request_form.save()
-            user_name = rank_data_form.cleaned_data['user_name']
-            category1 = rank_data_form.cleaned_data['category1']
-            category2 = rank_data_form.cleaned_data['category2']
 
             product_pict = request.FILES['product_pict']
             file_name = rank_data_form.cleaned_data['product_name'] + ".jpg"
