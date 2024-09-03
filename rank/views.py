@@ -64,9 +64,38 @@ def detail(request, category1):
     rank_records = RankData.objects.filter(user_name='yumaru51', category1=category1)
     if not rank_records.exists():
         messages.error(request, 'データがありません。')
+
+    # chart_data = [65, 59, 90, 81, 56]
+    # labels = ['項目1', '項目2', '項目3', '項目4', '項目5']
+    chart_data = {}
+    labels = [
+        RankData._meta.get_field('price').verbose_name,
+        RankData._meta.get_field('durability').verbose_name,
+        RankData._meta.get_field('portability').verbose_name,
+        RankData._meta.get_field('functionality').verbose_name,
+        RankData._meta.get_field('repeat').verbose_name,
+    ]
+
+    for records in rank_records:
+        chart_data[records.category2] = [
+            records.price,
+            records.durability,
+            records.portability,
+            records.functionality,
+            records.repeat
+        ]
+
+        print(RankData._meta.get_field('price').verbose_name, records.price)
+        print(RankData._meta.get_field('durability').verbose_name, records.durability)
+        print(RankData._meta.get_field('portability').verbose_name, records.portability)
+        print(RankData._meta.get_field('functionality').verbose_name, records.functionality)
+        print(RankData._meta.get_field('repeat').verbose_name, records.repeat)
+
     data = {
         'user_name': 'yumaru51',
         'rank_records': rank_records,
+        'chart_data': chart_data,
+        'labels': labels,
     }
     return render(request, 'rank/detail.html', data)
 

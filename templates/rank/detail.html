@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}詳細画面{% endblock %}
-{% block header %}<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>{% endblock %}
+{% block header %}{% endblock %}
 
 {% block content %}
 <h3>データ一覧</h3>
@@ -23,20 +23,20 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#No1">No.1</a>
+                        <a class="nav-link active" data-toggle="tab" href="#{{ column.category2 }}_1">{{ column.category2 }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#status">status</a>
+                        <a class="nav-link" data-toggle="tab" href="#{{ column.category2 }}_2">status</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#level">level</a>
+                        <a class="nav-link" data-toggle="tab" href="#{{ column.category2 }}_3">level</a>
                     </li>
                 </ul>
             </div>
 
             <div class="tab-content mt-3" style="max-height: 50rem">
 
-                <div class="tab-pane fade show active" id="No1">
+                <div class="tab-pane fade show active" id="{{ column.category2 }}_1">
                     <img class="card-img-top"
                          src="{% static 'img/'|add:column.product_name|add:'.jpg' %}" alt="...">
                     <div class="card-body">
@@ -50,20 +50,16 @@
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="status">
-                    <img class="card-img-top"
-                         src="{% static 'img/'|add:column.product_name|add:'.jpg' %}" alt="...">
+                <div class="tab-pane fade" id="{{ column.category2 }}_2">
                     <div class="card-body">
+                        <canvas id="{{ column.category2 }}_RadarChart" width="50" height="50"></canvas>
                         <h4 class="card-title">{{ column.product_name }}</h4>
-                        <p class="card-text">{{ column.maker }}</p>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><a href="#" class="badge bg-success">更新2</a></li>
-                            <li class="list-group-item"><a href="#" class="badge bg-success">削除2</a></li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="level">
+                <div class="tab-pane fade" id="{{ column.category2 }}_3">
                     <img class="card-img-top"
                          src="{% static 'img/'|add:column.product_name|add:'.jpg' %}" alt="...">
                     <div class="card-body">
@@ -111,32 +107,48 @@
 </div>
 <br>
 <br>
-
-
-<canvas id="myRadarChart" width="400" height="400"></canvas>
 <script>
-var ctx = document.getElementById('myRadarChart').getContext('2d');
-var myRadarChart = new Chart(ctx, {
-    type: 'radar',
-    data: {
-        labels: ['項目1', '項目2', '項目3', '項目4', '項目5'],
-        datasets: [{
-            label: 'データセット 1',
-            data: [65, 59, 90, 81, 56],
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scale: {
-            ticks: {
-                beginAtZero: true
+{% for key, value in chart_data.items %}
+    var chartData = {{ value|safe }};
+    var labels = {{ labels|safe }};
+
+    var ctx = document.getElementById('{{ key }}_RadarChart').getContext('2d');
+    var {{ key }}_RadarChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '{{ key }}',
+                data: chartData,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                radar: {
+                    ticks: {
+                        suggestedMin: 1,  // 推奨最小値
+                        suggestedMax: 5   // 推奨最大値
+                    },
+                    pointLabels: {
+                        font: {
+                            size: 14
+                        }
+                    },
+                    angleLines: {
+                        display: true
+                    }
+                }
             }
         }
-    }
-});
+    });
+{% endfor %}
 </script>
+
+
+
 
 
 {% endblock %}
