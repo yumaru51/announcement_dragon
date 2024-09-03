@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<!--    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">-->
+
+    <title>Hello, world!</title>
+</head>
+<style>
+</style>
+<body data-spy="scroll" data-target="#navbar" style="padding-top:50px; padding-bottom:50px;">
+
+
+<!-- navbar nav上のdropdownのoffsetは？ -->
+<nav class="navbar navbar-expand fixed-bottom navbar-dark bg-dark" role="navigation" style="height:50px">
+    <div class="col-3">
+        <a class="navbar-brand" href="#">ページの先頭へ</a>
+    </div>
+    <div class="col-3 offset-md-8">
+        <ul class="navbar-nav p-3">
+            <li class="navbar-item dropup">
+                <button type="button" class="btn btn-dark nav-link dropdown-toggle" id="navbarDropdownMenu2"
+                        data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">ChatBot</button>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu2">
+                    <h6 class="dropdown-header">ChatBot</h6>
+                    <div class="dropdown-divider"></div>
+                    <span class="dropdown-item-text">AI君</span>
+                    <span class="dropdown-item-text">クレーマーさん</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="breadcrumb" role="navigation">
+<!--<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark" role="navigation">-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#切り替え表示されるコンテンツ名"
+            aria-controls="切り替え表示されるコンテンツ名" aria-expanded="false" aria-label="ナビゲーション切り替え">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="切り替え表示されるコンテンツ名">
+<!--        <ul class="navbar-nav mr-auto">-->
+        <ul class="navbar-nav mr-auto">
+            <li class="navbar-item dropdown">
+<!--                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" data-toggle="dropdown"-->
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">ISK-TOOLS</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+                    <a class="dropdown-item" href="#">設備管理システム</a>
+                    <a class="dropdown-item" href="#">品質管理システム</a>
+                </div>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">HOME</a></li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="#title">title</a></li>
+            <li class="nav-item"><a class="nav-link" href="#button">button</a></li>
+            <li class="nav-item"><a class="nav-link" href="#card">card</a></li>
+            <li class="nav-item"><a class="nav-link" href="#float">float</a></li>
+        </ul>
+<!--        <span class="navbar-text mr-3">ナビゲーションバー内テキスト</span>-->
+<!--        <form class="form-inline my-2 my-lg-0">-->
+<!--            <input class="form-control mr-sm-2" type="search" placeholder="検索キーワード" aria-label="検索キーワード">-->
+<!--            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>-->
+<!--        </form>-->
+    </div>
+</nav>
+
+<!-- パンくずリスト スクロール調整　スクロールしたら位置が変わるように、 -->
+<!--<nav class="sticky-top" aria-label="breadcrumb" role="navigation" style="padding-top:50px">-->
+<!--    <ol class="breadcrumb">-->
+<!--        <li class="breadcrumb-item"><a href="#">ホーム</a></li>-->
+<!--        <li class="breadcrumb-item"><a href="#">ライブラリー</a></li>-->
+<!--        <li class="breadcrumb-item active" aria-current="page">データ</li>-->
+<!--    </ol>-->
+<!--</nav>-->
+
+<!-- title　エリア微調整したい。大きすぎる -->
+<div id="title" class="jumbotron jumbotron-fluid" style="margin-top:-50px; padding-top:100px;">
+    <div class="container">
+        <h1 class="display-3">Chatbot</h1>
+        <p class="lead">これはジャンボトロンのサンプルです。</p>
+    </div>
+</div>
+
+<!-- カルーセル -->
+{% comment %}
+<div id="carouselControls" class="carousel slide carousel-fade" data-ride="carousel" data-interval="3000" data-keyboard="true"
+data-pause="hover" data-wrap="true">
+    <div class="carousel-indicators">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselControls" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselControls" data-slide-to="1"></li>
+            <li data-target="#carouselControls" data-slide-to="2"></li>
+        </ol>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100" alt="First slide" src="{% static 'img/1nako.png' %}">
+            <div class="carousel-caption d-none d-md-block text-dark">
+                <h5>スライド見出し</h5>
+                <p>スライドのキャプション文</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" alt="Second slide" src="{% static 'img/2nako.jpeg' %}">
+            <div class="carousel-caption d-none d-md-block text-dark">
+                <h5>スライド見出し</h5>
+                <p>スライドのキャプション文</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" alt="Third slide" src="{% static 'img/3kuma.jfif' %}">
+            <div class="carousel-caption d-none d-md-block text-dark">
+                <h5>スライド見出し</h5>
+                <p>スライドのキャプション文</p>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">前に戻る</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">次に送る</span>
+    </a>
+</div>
+{% endcomment %}
+
+<!-- nav　左サイドに固定化したい -->
+<nav>
+    <!-- タブ部分 -->
+    <ul class="nav nav-pills flex-column float-left" id="myTab" role="tablist" style="max-width: 12rem">
+        <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="pill" href="#home" role="tab"
+                                aria-controls="home" aria-selected="true">ホーム</a></li>
+        <li class="nav-item"><a class="nav-link" id="profile-tab" data-toggle="pill" href="#profile" role="tab"
+                                aria-controls="profile" aria-selected="false">プロフィール</a></li>
+        <li class="nav-item"><a class="nav-link" id="contact-tab" data-toggle="pill" href="#contact" role="tab"
+                                aria-controls="contact" aria-selected="false">コンタクト</a></li>
+        <li class="nav-item dropright">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+               aria-expanded="false">ドロップダウン</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">リンク1</a>
+                <a class="dropdown-item" href="#">リンク2</a>
+                <a class="dropdown-item" href="#">リンク3</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">その他のリンク</a>
+            </div>
+        </li>
+    </ul>
+    <!-- パネル部分 -->
+    <div class="tab-content mt-3 mb-3" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <img class="card-img-top" src="{% static 'img/ウソップ.png' %}" alt="..." style="max-width: 3rem">
+            ホームのコンテンツが入ります。</div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="home-tab">
+            <img class="card-img-top" src="{% static 'img/サンジ.png' %}" alt="..." style="max-width: 3rem">
+            プロフィールのコンテンツが入ります。</div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="home-tab">
+            <img class="card-img-top" src="{% static 'img/チョッパー.png' %}" alt="..." style="max-width: 3rem">
+            コンタクトのコンテンツが入ります。</div>
+    </div>
+</nav>
+<br>
+<br>
+<br>
+<br>
+
+<!-- chatbot -->
+<div class="container">
+    <div class="row justify-conntent-start">
+        <div class="col-12">お問い合わせありがとうございます。</div>
+        <div class="col-12">ご要件はなんですか？</div>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-4">こんにちは</div>
+        <div class="w-100"></div>
+    </div>
+    <div class="row justify-conntent-start">
+        <div class="col-12">こんにちは</div>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-4">こんばんは</div>
+        <div class="w-100"></div>
+    </div>
+</div>
+<br>
+<br>
+
+<!-- button　押したら消えるやつ -->
+<div id="button" class="btn-toolbar" role="toolbar" aria-label="ボタンツールバー" style="margin-top:-60px; padding-top:60px;">
+    <div class="btn-group mr-2" role="group" aria-label="ボタングループ1">
+        <button type="button" class="btn btn-secondary">新規作成</button>
+        <button type="button" class="btn btn-secondary">編集</button>
+        <button type="button" class="btn btn-secondary">保存</button>
+        <button type="button" class="btn btn-secondary">削除</button>
+    </div>
+    <div class="btn-group mr-2" role="group" aria-label="ボタングループ2">
+        <button type="button" class="btn btn-secondary">拡大</button>
+        <button type="button" class="btn btn-secondary">縮小</button>
+        <button type="button" class="btn btn-secondary">等倍</button>
+    </div>
+    <div class="btn-group mr-2 dropup" role="group" aria-label="ドロップダウンを含むボタングループ">
+        <button id="drop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                data-offset="50,50" aria-haspopup="true" aria-expanded="false">
+            アルティメット
+        </button>
+        <div class="dropdown-menu" aria-labelledby="drop1">
+            <a class="dropdown-item" href="#">皇帝の分差令</a>
+            <a class="dropdown-item" href="#">まっすぐいってぶっ飛ばす！</a>
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text" id="btnGroupAddon">@</div>
+        </div>
+        <input type="text" class="form-control" placeholder="入力グループの例" aria-label="入力グループの例" aria-describedby="btnGroupAddon">
+    </div>
+</div>
+
+<!-- dropdown -->
+<div class="btn-group dropright">
+    <button class="btn btn-secondary dropdown-toggle mt-2" type="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+        ドロップダウン
+    </button>
+    <div class="dropdown-menu p-3" style="max-width: 300px;">
+        <h6 class="dropdown-header">ドロップダウンメニューの見出し</h6>
+        <form class="px-4 py-3">
+            <div class="form-group">
+                <label for="address">メールアドレス</label>
+                <input type="email" class="form-control" placeholder="email@example.com" id="address">
+                <label for="password">パスワード</label>
+                <input type="password" class="form-control" placeholder="Password" id="password">
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="login">
+                <label class="form-check-label" for="login">ログイン情報を記憶</label>
+            </div>
+            <button type="submit" class="btn btn-secondary">ログイン</button>
+        </form>
+        <div class="dropdown-divider"></div>
+        <p>TEST</p>
+        <span class="dropdown-item-text">非リンクテキスト</span>
+        <a class="dropdown-item" href="#">初めての方</a>
+        <a class="dropdown-item" href="#">パスワードをお忘れの方</a>
+    </div>
+</div>
+<br>
+<br>
+<button type="button" class="btn btn-primary" aria-pressed="true" autocomplete="off" id="toggle-btn">押してね</button>
+<br>
+<br>
+
+<!-- 折り畳み 説明表示に使えるね。縦方向にはレイアウト自動調整されるが横方向はレイアウト自動調整されない？ -->
+<p>
+    <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target=".contents" aria-expanded="false"
+            aria-controls="collapseContent01 collapseContent02">button要素とdata-target属性によるボタン</button>
+</p>
+<p>
+    <a class="btn btn-secondary" data-toggle="collapse" href="#collapseContent01" role="button" aria-expanded="false"
+       aria-controls="collapseContent01">a要素とhref属性によるボタン</a>
+</p>
+<p>
+    <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseContent02
+" aria-expanded="false"
+            aria-controls="collapseContent02">button要素とdata-target属性によるボタン</button>
+</p>
+<div class="collapse contents" id="collapseContent01">
+    <div class="card card-body">
+        a要素の切り替えボタンをクリックすることで表示と非表示とが切り替わるコンテンツ
+    </div>
+</div>
+<div class="collapse contents" id="collapseContent02">
+    <div class="card card-body">
+        button要素の切り替えボタンをクリックすることで表示と非表示とが切り替わるコンテンツ
+    </div>
+</div>
+
+<!-- モーダル alertとの使い分けは？ -->
+<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+    切り替えボタン
+</button>
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">モーダルのタイトル</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                モーダルの本文が入ります。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ページネーション -->
+<nav aria-label="ページネーションの例">
+    <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">前</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item active"><a class="page-link" href="#">2 <span class="sr-only">(現ページ)</span></a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">次</a>
+        </li>
+    </ul>
+</nav>
+
+<!-- アラート表示　条件とか？ -->
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="alert-heading">正常に処理が完了しました</h4>
+    <hr>
+    <p>MAIN処理が最後まで完了しました</p>
+    <p class="mb-0">処理実行時間は3h30mでした</p>
+</div>
+<br>
+<br>
+
+<!--Twitter参考-->
+<ul class="list-unstyled">
+    <li class="media mb-4">
+        <img class="mr-3" src="{% static 'img/初期アバター.jpg' %}" style="max-width: 3rem" alt="">
+        <div class="media-body">
+            <h5>Aくん</h5>
+            <p>この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。
+            文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。</p>
+            <div class="media-body">
+                <div class="media mt-3">
+                    <a href="#"><img class="mr-3" alt="" src="{% static 'img/初期アバター.jpg' %}" style="max-width: 3rem"></a>
+                    <div class="media-body">
+                        <h5>Bちゃん</h5>
+                                <p>FF外からコメント失礼します。連投やめろ！</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="media mb-4">
+        <img class="mr-3" src="{% static 'img/初期アバター.jpg' %}" style="max-width: 3rem" alt="">
+        <div class="media-body">
+        <h5>Aくん</h5>
+        <p>この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。
+        文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。</p>
+        </div>
+    </li>
+    <li class="media mb-4">
+        <img class="mr-3" src="{% static 'img/初期アバター.jpg' %}" style="max-width: 3rem" alt="">
+        <div class="media-body">
+        <h5>Aくん</h5>
+        <p>この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。
+        文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。</p>
+        </div>
+    </li>
+</ul>
+<br>
+<br>
+
+<!-- card　タブ変えたときの枠の高さを統一したい -->
+<div id="card" class="row" style="margin-top:-60px; padding-top:60px;">
+    <div class="col-sm-3">
+        <div class="card" style="max-width: 25rem">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#No1">No.1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#status">status</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#level">level</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content mt-3" style="max-height: 50rem">
+                <div class="tab-pane fade show active" id="No1">
+                    <img class="card-img-top"
+                         src="{% static 'img/クロコダイル.png' %}" alt="...">
+                    <div class="card-body">
+                        <h4 class="card-title">サー・クロコダイル</h4>
+                        <p class="card-text">スナスナすな～</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="#" class="badge badge-success">01.デザートスパーダ</a></li>
+                            <li class="list-group-item"><a href="#" class="badge badge-success">02.デザート・ジラソーレ</a></li>
+                            <li class="list-group-item"><a href="#" class="badge badge-success">03.サーブルス</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="status">
+                    こいつのステータスはまじやべーぜー！
+                </div>
+                <div class="tab-pane fade" id="level">
+                    こいつのレベルはまじやべーぜー！
+                </div>
+            </div>
+            <div class="card-footer">
+                ONEPIECEキャラクター一覧
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="card" style="max-width: 25rem">
+            <div class="card-header">
+                <ul class="nav nav-pills cardheader-pills">
+                    <li class="nam-item">
+                        <a class="nav-link active" href="#">No.2</a>
+                    </li>
+                    <li class="nam-item">
+                        <a class="nav-link" href="#">status</a>
+                    </li>
+                    <li class="nam-item">
+                        <a class="nav-link" href="#">level</a>
+                    </li>
+                </ul>
+            </div>
+            <img class="card-img-top" src="{% static 'img/エネル.png' %}" alt="...">
+            <div class="card-body">
+                <h4 class="card-title">エネル</h4>
+                <p class="card-text">ゴム効かんのかい！！</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="#" class="badge badge-success">01.デザートスパーダ</a></li>
+                    <li class="list-group-item"><a href="#" class="badge badge-success">02.デザート・ジラソーレ</a></li>
+                    <li class="list-group-item"><a href="#" class="badge badge-success">03.サーブルス</a></li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                ONEPIECEキャラクター一覧
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="card" style="max-width: 25rem">
+            <div class="card-header">
+                No.3
+            </div>
+            <img class="card-img-top" src="{% static 'img/ドフラミンゴ.png' %}" alt="...">
+            <div class="card-body">
+                <h4 class="card-title">ドフラミンゴ</h4>
+                <p class="card-text">輪になってオドロ～♪ワワワワ～♪</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="#" class="badge badge-success">01.デザートスパーダ</a></li>
+                    <li class="list-group-item"><a href="#" class="badge badge-success">02.デザート・ジラソーレ</a></li>
+                    <li class="list-group-item"><a href="#" class="badge badge-success">03.サーブルス</a></li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                ONEPIECEキャラクター一覧
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+<!-- table -->
+<table class="table table-bordered table-hover">
+    <caption>このテーブルのキャプション</caption>
+    <thead>
+        <tr>
+            <th scope="col">見出しセル</th>
+            <th scope="col">見出しセル</th>
+            <th scope="col">見出しセル</th>
+            <th scope="col">見出しセル</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">見出しセル</th>
+            <td>データセル</td>
+            <td>データセル</td>
+            <td>データセル</td>
+        </tr>
+        <tr>
+            <th scope="row">見出しセル</th>
+            <td>データセル</td>
+            <td>データセル</td>
+            <td>データセル</td>
+        </tr>
+        <tr>
+            <th scope="row">見出しセル</th>
+            <td>データセル</td>
+            <td>データセル</td>
+            <td>データセル</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<br>
+
+<!-- グリッドシステム -->
+<div id="grid" class="container">
+    <div class="row">
+        <div class="col-sm-9">第一階層:col-sm-9
+            <div class="row">
+                <div class="col-8 col-sm-6">第二階層:col-8とcol-sm-6</div>
+                <div class="col-4 col-sm-6">第二階層:col-4とcol-sm-6</div>
+            </div>
+        </div>
+        <div class="col-sm-3">第一階層:col-sm-3</div>
+    </div>
+</div>
+<br>
+<br>
+
+<!-- abbr -->
+<p><abbr title="HyperText Markup Language">HTML</abbr></p>
+<p><abbr title="HyperText Markup Language" class="initialism">HTML</abbr></p>
+<br>
+<br>
+
+<!-- inline -->
+<b>リストを水平に</b>
+<ul class="list-inline">
+    <li class="list-inline-item">インラインリスト項目</li>
+    <li class="list-inline-item">インラインリスト項目</li>
+    <li class="list-inline-item">インラインリスト項目</li>
+</ul>
+<br>
+<br>
+
+<b>定義リストを水平に</b>
+<dl class="row">
+    <dt class="col-sm-3">用語1</dt>
+    <dd class="col-sm-9">用語1の説明。</dd>
+    <dt class="col-sm-3 text-truncate">用語2の長いテキストは切り捨てて省略</dt>
+    <dd class="col-sm-9">用語2の説明。</dd>
+    <dt class="col-sm-3">用語3</dt>
+    <dd class="col-sm-9">
+        <dl class="row">
+            <dt class="col-sm-4">ネストされた用語4</dt>
+            <dd class="col-sm-8">ネストされた用語4の説明</dd>
+        </dl>
+    </dd>
+</dl>
+<br>
+<br>
+
+<!-- float chatbotでつかえる -->
+<div id="float" class="clearfix" style="margin-top:-60px; padding-top:60px;">
+    <img src="{% static 'img/ゾロ.png' %}" class="rounded float-right" alt="揃え画像" style="max-width: 25rem">
+    <img src="{% static 'img/ルフィ.png' %}" class="rounded float-left" alt="左揃え画像" style="max-width: 25rem">
+</div>
+<div class="container">
+    <span class="float-left">float-left </span><br>
+    <span class="float-right">float-right </span><br>
+    <span class="float-left">float-left </span><br>
+    <span class="float-right">float-right </span><br>
+    <span class="float-left">float-left </span><br>
+    <span class="float-right">float-right </span><br>
+</div>
+<br>
+<br>
+
+<!-- progress -->
+<div class="progress mb-3" style="height: 30px;">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width: 30%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+
+{% comment %}
+{% endcomment %}
+
+<!--<script src="{% static 'js/jquery-3.6.3.slim.min.js' %}"></script>-->
+<!--<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script>
+  $("#toggle-btn").on('click', function() {
+    $(this).button('toggle').text('押したね');
+  });
+
+$(function(){
+    $('#navbarDropdownMenu2').dropdown('toggle');
+});
+{% comment %}
+$(function(){
+    $(".dropdown").on("show.bs.dropdown", function(event){
+        var x = $(event.relatedTarget).text();
+        alert(x + 'なくなり次第終了!');
+    });
+});
+{% endcomment %}
+</script>
+</body>
+</html>

@@ -98,23 +98,12 @@
         </div>
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
+
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-              <li class="nav-item active">
-                    <a class="nav-link" aria-current="page" href="{% url 'top' %}">TOP</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="">(工事中)ここを</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'admin:password_change' %}">(工事中)パンくずに</a>
-                </li>
-                <li class="nav-item">
-                    <!--todo ログアウトページ　URLパラメーターで送れない-->
-                    <a class="nav-link" href="/accounts/logout/">(工事中)したいかも</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
-                </li>
+                <li class="nav-item active"><a class="nav-link" aria-current="page" href="#">ランキング登録　/</a></li>
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="#">ランキングを見る　/</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">イメージ　/</a></li>
+                <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a></li>
             </ul>
             <span class="navbar-text">
                 ようこそ{{ request.user.last_name }}{{ request.user.first_name }}さん
@@ -124,6 +113,10 @@
     </div>
 </nav>
 
+
+
+
+
 <!--各コンテンツ格納-->
 <main class="container-fluid themed-container">
     <div class="bg-light p-5 rounded">
@@ -131,4 +124,5 @@
     </div>
 </main>
 </body>
+
 </html>

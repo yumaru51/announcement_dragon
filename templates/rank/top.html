@@ -26,7 +26,15 @@
     {% endfor %}
 {% endif %}
 
-<h3>ランキング登録</h3>
+<!-- ジャンボトロン　エリア微調整したい。大きすぎる -->
+<div id="title" class="jumbotron jumbotron-fluid" style="margin-top:0px; padding-top:60px; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: rgba(0, 123, 255, 0.8); color: white;">
+    <div class="container">
+        <h2 class="display-6">買ってよかったもの発表ドラゴン</h2>
+        <p class="lead">正式名称が〜</p>
+    </div>
+</div>
+
+<h3 style="margin-top:90px;">ランキング登録</h3>
 <form name="form_top_page" id="form_top_page" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-control">
@@ -61,6 +69,6 @@
 </table>
 <br>
 <br>
-<img src="{% static 'img/home.jpg' %}" alt="画像の説明" />
+<img src="{% static 'img/home.jpg' %}" alt="画像の説明" id="float" />
 {% endblock %}
 
