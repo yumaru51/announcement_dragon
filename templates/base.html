@@ -99,25 +99,26 @@
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item active">
+              <li class="nav-item active">
                     <a class="nav-link" aria-current="page" href="{% url 'top' %}">TOP</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="">(工事中)ホーム</a>
+                    <a class="nav-link" aria-current="page" href="">(工事中)ここを</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'admin:password_change' %}">(工事中)パスワードの変更</a>
+                    <a class="nav-link" href="{% url 'admin:password_change' %}">(工事中)パンくずに</a>
                 </li>
                 <li class="nav-item">
                     <!--todo ログアウトページ　URLパラメーターで送れない-->
-                    <a class="nav-link" href="/accounts/logout/">(工事中)ログアウト</a>
+                    <a class="nav-link" href="/accounts/logout/">(工事中)したいかも</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
                 </li>
             </ul>
             <span class="navbar-text">
-                (工事中)ログインユーザー：{{ request.user }}さん
+                ようこそ{{ request.user.last_name }}{{ request.user.first_name }}さん
+                バーガーメニューしたい
             </span>
         </div>
     </div>
