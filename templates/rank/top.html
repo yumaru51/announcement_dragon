@@ -37,15 +37,21 @@
 {% endcomment %}
 
 <!-- nav　左サイドに固定化 -->
-<nav style="position: fixed; margin-top: 70px; top: 0; left: 0; height: 100%; overflow-y: auto; width: 10rem; background-color: #f8f9fa;">
+<nav id="navbar" style="position: fixed; margin-top: 70px; top: 0; left: 0; height: 100%; overflow-y: auto; width: 10rem; background-color: #f8f9fa;">
     <!-- タブ部分 -->
     <ul class="nav nav-pills flex-column float-left" id="myTab" role="tablist" style="max-width: 12rem">
+        <li class="nav-item"><a class="nav-link active" href="#show">ランキングを見る</a></li>
+        <li class="nav-item"><a class="nav-link" href="#entry">ランキング登録</a></li>
+        <li class="nav-item"><a class="nav-link" href="#image">空間イメージ</a></li>
+        {% comment %}左メニューのタブ化はやめる。
         <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="pill" href="#home" role="tab"
                                 aria-controls="home" aria-selected="true">ランキングを見る</a></li>
         <li class="nav-item"><a class="nav-link" id="profile-tab" data-toggle="pill" href="#profile" role="tab"
                                 aria-controls="profile" aria-selected="false">ランキング登録</a></li>
         <li class="nav-item"><a class="nav-link" id="contact-tab" data-toggle="pill" href="#contact" role="tab"
                                 aria-controls="contact" aria-selected="false">空間イメージ</a></li>
+        {% endcomment %}
+
         <li class="nav-item dropright">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                aria-expanded="false">ドロップダウン</a>
@@ -59,7 +65,7 @@
         </li>
     </ul>
 </nav>
-
+{% comment %}左メニューのタブ化はやめる。
 <!-- コンテンツ部分 -->
 <div style="margin-left: 8rem; padding: 1rem;">
     <div class="tab-content mt-3 mb-3" id="myTabContent">
@@ -67,23 +73,42 @@
         <!--コンテンツ1-->
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <!--<img class="card-img-top" src="{% static 'img/ウソップ.png' %}" alt="..." style="max-width: 3rem">-->
+            a
         </div>
 
         <!--コンテンツ2-->
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            i
         </div>
 
         <!--コンテンツ3-->
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            u
         </div>
 
     </div>
 </div>
-
+{% endcomment %}
 
 <div style="margin-left: 8rem;">
 
-<h3 style="margin-top:0px;" id="show">ランキングを見る</h3>
+<h3 style="padding-top: 60px; margin-top: -60px; " id="show">ランキングを見る</h3>
+<table class="table table-bordered border-dark">
+    <thead class="table-info">
+    <tr>
+        <th scope="col"></th>
+        <th scope="col">カテゴリー1</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for key, value in category_dict.items %}
+    <tr>
+        <td scope="row"><a href="{% url 'detail' value.category1 %}">開く</a></td>
+        <td>{{ value.category1 }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
 <table class="table table-bordered border-dark">
     <thead class="table-info">
     <tr>
@@ -102,7 +127,20 @@
 </table>
 <br>
 
-<h3 style="margin-top:0px;" id="entry">ランキング登録</h3>
+<h3 style="padding-top: 60px; margin-top: -60px; " id="entry">ランキング登録</h3>
+<form name="form_top_page" id="form_top_page" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-control">
+        <div class="row m-1">
+                {% for rank_data_form in rank_data_form %}
+                <div class="col-2 px-0">{{ rank_data_form.label }}{{ rank_data_form }}</div>
+                {% endfor %}
+                <div class="col-2"><button class="btn btn-primary mt-2" type="submit">登録</button></div>
+                <input class="form-control" type="file" name="product_pict">
+                <!--<label class="col-2 btn btn-primary">Choose file <input type="file" hidden></label>-->
+        </div>
+    </div>
+</form>
 <form name="form_top_page" id="form_top_page" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-control">
@@ -118,7 +156,9 @@
 </form>
 <br>
 
-<h3 style="margin-top:0px;" id="image">空間イメージ</h3>
+<h3 style="padding-top: 60px; margin-top: -60px; " id="image">空間イメージ</h3>
+<img src="{% static 'img/home.jpg' %}" alt="画像の説明" id="float" /><br>
+<img src="{% static 'img/home.jpg' %}" alt="画像の説明" id="float" /><br>
 <img src="{% static 'img/home.jpg' %}" alt="画像の説明" id="float" /><br>
 
 <br>
