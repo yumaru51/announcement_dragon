@@ -37,9 +37,9 @@
 {% endcomment %}
 
 <!-- nav　左サイドに固定化 -->
-<nav id="navbar" style="position: fixed; margin-top: 70px; top: 0; left: 0; height: 100%; overflow-y: auto; width: 10rem; background-color: #f8f9fa;">
+<nav id="navbar" style="position: fixed; top: 70px; left: 0; height: 100%; overflow-y: auto; width: 10rem; background-color: #f8f9fa;">
     <!-- タブ部分 -->
-    <ul class="nav nav-pills flex-column float-left" id="myTab" role="tablist" style="max-width: 12rem">
+    <ul class="nav nav-pills flex-column float-left" id="myTab" role="tablist" style="max-width: 10rem">
         <li class="nav-item"><a class="nav-link active" href="#show">ランキングを見る</a></li>
         <li class="nav-item"><a class="nav-link" href="#entry">ランキング登録</a></li>
         <li class="nav-item"><a class="nav-link" href="#image">空間イメージ</a></li>
@@ -52,8 +52,8 @@
                                 aria-controls="contact" aria-selected="false">空間イメージ</a></li>
         {% endcomment %}
 
-        <li class="nav-item dropright">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+        <li class="nav-item dropend">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                aria-expanded="false">ドロップダウン</a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="#">リンク1</a>
@@ -92,7 +92,7 @@
 
 <div style="margin-left: 8rem;">
 
-<h3 style="padding-top: 60px; margin-top: -60px; " id="show">ランキングを見る</h3>
+<h3 style="padding-top: 60px; margin-top: -90px; " id="show">ランキングを見る</h3>
 <table class="table table-bordered border-dark">
     <thead class="table-info">
     <tr>
