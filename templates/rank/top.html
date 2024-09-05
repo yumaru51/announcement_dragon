@@ -28,6 +28,7 @@
 
 {% comment %}
 {% endcomment %}
+
 <!-- ジャンボトロン　エリア微調整したい。大きすぎる -->
 <div id="title" class="jumbotron jumbotron-fluid" style="margin-top:0px; padding-top:60px; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: rgba(0, 123, 255, 0.8); color: white;">
     <div class="container">
@@ -63,6 +64,7 @@
                 <a class="dropdown-item" href="#">その他のリンク</a>
             </div>
         </li>
+        <li class="nav-item"><a class="nav-link" href="#">一番上に戻る</a></li>
     </ul>
 </nav>
 {% comment %}左メニューのタブ化はやめる。
@@ -90,25 +92,9 @@
 </div>
 {% endcomment %}
 
-<div style="margin-left: 8rem;">
+<div style="margin-left: 8rem; ">
 
 <h3 style="padding-top: 170px; margin-top: -100px; " id="show">ランキングを見る</h3>
-<table class="table table-bordered border-dark">
-    <thead class="table-info">
-    <tr>
-        <th scope="col"></th>
-        <th scope="col">カテゴリー1</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for key, value in category_dict.items %}
-    <tr>
-        <td scope="row"><a href="{% url 'detail' value.category1 %}">開く</a></td>
-        <td>{{ value.category1 }}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
 <table class="table table-bordered border-dark">
     <thead class="table-info">
     <tr>
@@ -129,19 +115,6 @@
 
 <h3 style="padding-top: 170px; margin-top: -100px; " id="entry">ランキング登録</h3>
 <form name="form_top_page" id="form_top_page" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="form-control">
-        <div class="row m-1">
-                {% for rank_data_form in rank_data_form %}
-                <div class="col-2 px-0">{{ rank_data_form.label }}{{ rank_data_form }}</div>
-                {% endfor %}
-                <div class="col-2"><button class="btn btn-primary mt-2" type="submit">登録</button></div>
-                <input class="form-control" type="file" name="product_pict">
-                <!-- <label class="col-2 btn btn-primary">Choose file <input type="file" hidden></label> -->
-        </div>
-    </div>
-</form>
-<form name="form_top_page" id="form_top_page2" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-control">
         <div class="row m-1">

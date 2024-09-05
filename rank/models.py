@@ -6,7 +6,7 @@ class Category1(models.Model):
     category1 = models.CharField('カテゴリー1', max_length=20, blank=True, null=True)
     registration_time = models.DateTimeField('登録日時', blank=True, null=True)
     update_time = models.DateTimeField('更新日時', blank=True, null=True)
-    lost_flag = models.IntegerField('無効FL', blank=True, null=True)
+    lost_flag = models.IntegerField('無効FL', blank=True, null=True, default=0)
 
     class Meta:
         db_table = 'rank_m_category1'
@@ -18,7 +18,7 @@ class Category2(models.Model):
     category2 = models.CharField('カテゴリー2', max_length=20, blank=True, null=True)
     registration_time = models.DateTimeField('登録日時', blank=True, null=True)
     update_time = models.DateTimeField('更新日時', blank=True, null=True)
-    lost_flag = models.IntegerField('無効FL', blank=True, null=True)
+    lost_flag = models.IntegerField('無効FL', blank=True, null=True, default=0)
 
     class Meta:
         db_table = 'rank_m_category2'
@@ -39,7 +39,7 @@ class RankData(models.Model):
     category = models.CharField('商品紹介', max_length=100, blank=True, null=True)
     registration_time = models.DateTimeField('登録日時', blank=True, null=True)
     update_time = models.DateTimeField('更新日時', blank=True, null=True)
-    lost_flag = models.IntegerField('無効FL', blank=True, null=True)
+    lost_flag = models.IntegerField('無効FL', blank=True, null=True, default=0)
 
     class Meta:
         db_table = 'rank_t_rankdata'
