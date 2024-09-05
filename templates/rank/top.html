@@ -36,8 +36,8 @@
     </div>
 </div>
 
-<!-- nav　左サイドに固定化 -->
-<nav id="navbar" style="position: fixed; top: 70px; left: 0; height: 100%; overflow-y: auto; width: 10rem; background-color: #f8f9fa;">
+<!-- nav　左サイドメニュー -->
+<nav id="navbar" style="position: fixed; top: 170px; left: 0; height: 100%; overflow-y: auto; width: 10rem; background-color: #f8f9fa;">
     <!-- タブ部分 -->
     <ul class="nav nav-pills flex-column float-left" id="myTab" role="tablist" style="max-width: 10rem">
         <li class="nav-item"><a class="nav-link active" href="#show">ランキングを見る</a></li>
@@ -70,18 +70,18 @@
 <div style="margin-left: 8rem; padding: 1rem;">
     <div class="tab-content mt-3 mb-3" id="myTabContent">
 
-        <!--コンテンツ1-->
+        <!-- コンテンツ1 -->
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <!--<img class="card-img-top" src="{% static 'img/ウソップ.png' %}" alt="..." style="max-width: 3rem">-->
             a
         </div>
 
-        <!--コンテンツ2-->
+        <!-- コンテンツ2 -->
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             i
         </div>
 
-        <!--コンテンツ3-->
+        <!-- コンテンツ3 -->
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
             u
         </div>
@@ -92,7 +92,7 @@
 
 <div style="margin-left: 8rem;">
 
-<h3 style="padding-top: 60px; margin-top: -90px; " id="show">ランキングを見る</h3>
+<h3 style="padding-top: 170px; margin-top: -100px; " id="show">ランキングを見る</h3>
 <table class="table table-bordered border-dark">
     <thead class="table-info">
     <tr>
@@ -127,7 +127,7 @@
 </table>
 <br>
 
-<h3 style="padding-top: 60px; margin-top: -60px; " id="entry">ランキング登録</h3>
+<h3 style="padding-top: 170px; margin-top: -100px; " id="entry">ランキング登録</h3>
 <form name="form_top_page" id="form_top_page" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-control">
@@ -137,11 +137,11 @@
                 {% endfor %}
                 <div class="col-2"><button class="btn btn-primary mt-2" type="submit">登録</button></div>
                 <input class="form-control" type="file" name="product_pict">
-                <!--<label class="col-2 btn btn-primary">Choose file <input type="file" hidden></label>-->
+                <!-- <label class="col-2 btn btn-primary">Choose file <input type="file" hidden></label> -->
         </div>
     </div>
 </form>
-<form name="form_top_page" id="form_top_page" method="post" enctype="multipart/form-data">
+<form name="form_top_page" id="form_top_page2" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-control">
         <div class="row m-1">
@@ -150,13 +150,13 @@
                 {% endfor %}
                 <div class="col-2"><button class="btn btn-primary mt-2" type="submit">登録</button></div>
                 <input class="form-control" type="file" name="product_pict">
-                <!--<label class="col-2 btn btn-primary">Choose file <input type="file" hidden></label>-->
+                <!-- <label class="col-2 btn btn-primary">Choose file <input type="file" hidden></label> -->
         </div>
     </div>
 </form>
 <br>
 
-<h3 style="padding-top: 60px; margin-top: -60px; " id="image">空間イメージ</h3>
+<h3 style="padding-top: 170px; margin-top: -100px; " id="image">空間イメージ</h3>
 <img src="{% static 'img/home.jpg' %}" alt="画像の説明" id="house" /><br>
 <img src="{% static 'img/202409.jpg' %}" alt="画像の説明" id="202409" width="800" height="1000"><br>
 <img src="{% static 'img/202409.jpg' %}" alt="画像の説明" id="202408" width="800" height="1000"><br>
