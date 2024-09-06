@@ -29,72 +29,12 @@
 {% comment %}
 {% endcomment %}
 
-<!-- ジャンボトロン　エリア微調整したい。大きすぎる -->
-<div id="title" class="jumbotron jumbotron-fluid" style="margin-top:0px; padding-top:60px; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: rgba(0, 123, 255, 0.8); color: white;">
-    <div class="container">
-        <h2 class="display-6">買ってよかったもの発表ドラゴン</h2>
-        <p class="lead">正式名称が〜</p>
-    </div>
-</div>
 
-<!-- nav　左サイドメニュー -->
-<nav id="navbar" style="position: fixed; top: 170px; left: 0; height: 100%; overflow-y: auto; width: 10rem; background-color: #f8f9fa;">
-    <!-- タブ部分 -->
-    <ul class="nav nav-pills flex-column float-left" id="myTab" role="tablist" style="max-width: 10rem">
-        <li class="nav-item"><a class="nav-link active" href="#show">ランキングを見る</a></li>
-        <li class="nav-item"><a class="nav-link" href="#entry">ランキング登録</a></li>
-        <li class="nav-item"><a class="nav-link" href="#image">空間イメージ</a></li>
-        {% comment %}左メニューのタブ化はやめる。
-        <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="pill" href="#home" role="tab"
-                                aria-controls="home" aria-selected="true">ランキングを見る</a></li>
-        <li class="nav-item"><a class="nav-link" id="profile-tab" data-toggle="pill" href="#profile" role="tab"
-                                aria-controls="profile" aria-selected="false">ランキング登録</a></li>
-        <li class="nav-item"><a class="nav-link" id="contact-tab" data-toggle="pill" href="#contact" role="tab"
-                                aria-controls="contact" aria-selected="false">空間イメージ</a></li>
-        {% endcomment %}
 
-        <li class="nav-item dropend">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-               aria-expanded="false">ドロップダウン</a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">リンク1</a>
-                <a class="dropdown-item" href="#">リンク2</a>
-                <a class="dropdown-item" href="#">リンク3</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">その他のリンク</a>
-            </div>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="#">一番上に戻る</a></li>
-    </ul>
-</nav>
-{% comment %}左メニューのタブ化はやめる。
-<!-- コンテンツ部分 -->
-<div style="margin-left: 8rem; padding: 1rem;">
-    <div class="tab-content mt-3 mb-3" id="myTabContent">
-
-        <!-- コンテンツ1 -->
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <!--<img class="card-img-top" src="{% static 'img/ウソップ.png' %}" alt="..." style="max-width: 3rem">-->
-            a
-        </div>
-
-        <!-- コンテンツ2 -->
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-            i
-        </div>
-
-        <!-- コンテンツ3 -->
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-            u
-        </div>
-
-    </div>
-</div>
-{% endcomment %}
 
 <div style="margin-left: 8rem; ">
 
-<h3 style="padding-top: 170px; margin-top: -100px; " id="show">ランキングを見る</h3>
+<h3 style="padding-top: 170px; margin-top: -100px;" id="show">ランキングを見る</h3>
 <table class="table table-bordered border-dark">
     <thead class="table-info">
     <tr>
@@ -113,7 +53,7 @@
 </table>
 <br>
 
-<h3 style="padding-top: 170px; margin-top: -100px; " id="entry">ランキング登録</h3>
+<h3 style="padding-top: 170px; margin-top: -100px;" id="entry">ランキング登録</h3>
 <form name="form_top_page" id="form_top_page" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-control">
@@ -129,7 +69,7 @@
 </form>
 <br>
 
-<h3 style="padding-top: 170px; margin-top: -100px; " id="image">空間イメージ</h3>
+<h3 style="padding-top: 170px; margin-top: -100px;" id="image">空間イメージ</h3>
 <img src="{% static 'img/home.jpg' %}" alt="画像の説明" id="house" /><br>
 <img src="{% static 'img/202409.jpg' %}" alt="画像の説明" id="202409" width="800" height="1000"><br>
 <img src="{% static 'img/202409.jpg' %}" alt="画像の説明" id="202408" width="800" height="1000"><br>
