@@ -26,50 +26,53 @@
     {% endfor %}
 {% endif %}
 
-{% comment %}
-{% endcomment %}
-
-
-
-
 <div style="margin-left: 8rem; ">
 
-<h3 style="padding-top: 170px; margin-top: -100px;" id="show">ランキングを見る</h3>
+<h3 style="padding-top: 170px; margin-top: -200px;" id="show">ランキングを見る</h3>
+
+<div class="row m-1">
+    {% for key, value in category_dict.items %}
+    <div class="col-2 px-1"><a href="{% url 'detail' value.category1 %}">{{ value.category1 }}</a></div>
+    {% endfor %}
+</div>
+
+{% comment %}
 <table class="table table-bordered border-dark">
     <thead class="table-info">
     <tr>
-        <th scope="col"></th>
         <th scope="col">カテゴリー1</th>
     </tr>
     </thead>
     <tbody>
     {% for key, value in category_dict.items %}
     <tr>
-        <td scope="row"><a href="{% url 'detail' value.category1 %}">開く</a></td>
-        <td>{{ value.category1 }}</td>
+        <td scope="row"><a href="{% url 'detail' value.category1 %}">{{ value.category1 }}</a></td>
     </tr>
     {% endfor %}
     </tbody>
 </table>
+{% endcomment %}
 <br>
 
-<h3 style="padding-top: 170px; margin-top: -100px;" id="entry">ランキング登録</h3>
+<h3 style="padding-top: 70px; margin-top: -90px;" id="entry">ランキング登録</h3>
 <form name="form_top_page" id="form_top_page" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-control">
         <div class="row m-1">
-                {% for rank_data_form in rank_data_form %}
-                <div class="col-2 px-0">{{ rank_data_form.label }}{{ rank_data_form }}</div>
-                {% endfor %}
-                <div class="col-2"><button class="btn btn-primary mt-2" type="submit">登録</button></div>
-                <input class="form-control" type="file" name="product_pict">
-                <!-- <label class="col-2 btn btn-primary">Choose file <input type="file" hidden></label> -->
+            {% for rank_data_form in rank_data_form %}
+                <div class="col-2 px-1">
+                    {{ rank_data_form.label }}{{ rank_data_form }}
+                </div>
+            {% endfor %}
+            <div class="col-2"><button class="btn btn-primary mt-2" type="submit">登録</button></div>
+            <input class="form-control" type="file" name="product_pict">
+            <!-- <label class="col-2 btn btn-primary">Choose file <input type="file" hidden></label> -->
         </div>
     </div>
 </form>
-<br>
+<br><br>
 
-<h3 style="padding-top: 170px; margin-top: -100px;" id="image">空間イメージ</h3>
+<h3 style="padding-top: 70px; margin-top: -90px;" id="image">空間イメージ</h3>
 <img src="{% static 'img/home.jpg' %}" alt="画像の説明" id="house" /><br>
 <img src="{% static 'img/202409.jpg' %}" alt="画像の説明" id="202409" width="800" height="1000"><br>
 <img src="{% static 'img/202409.jpg' %}" alt="画像の説明" id="202408" width="800" height="1000"><br>
