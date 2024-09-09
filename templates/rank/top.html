@@ -2,7 +2,22 @@
 {% load static %}
 
 {% block title %}TOP画面{% endblock %}
-{% block header %}{% endblock %}
+{% block header %}
+<style>
+body {
+  padding-top: 2rem;
+}
+.container {
+  margin-bottom: 2rem;
+}
+.row>.col, .row>[class^=col-] {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background-color: rgba(0, 0, 0, .1);
+  border: 1px solid #aaa;
+}
+</style>
+{% endblock %}
 
 {% block content %}
 
@@ -28,33 +43,133 @@
 
 <div style="margin-left: 8rem; ">
 
-<h3 style="padding-top: 170px; margin-top: -200px;" id="show">ランキングを見る</h3>
+<div id="carouselExample" class="carousel slide" style="padding-top: 170px; margin-top: -200px;" ><!-- data-ride="carousel"は不要 -->
 
+    <!-- インジケーター部分 -->
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExample" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExample" data-slide-to="1"></li>
+        <li data-target="#carouselExample" data-slide-to="2"></li>
+        <li data-target="#carouselExample" data-slide-to="3"></li>
+        <li data-target="#carouselExample" data-slide-to="4"></li>
+    </ol>
+
+    <!-- カルーセル部分 -->
+    <div class="carousel-inner">
+        <!-- First slide -->
+        <div class="carousel-item active"> <img class="d-block w-50" alt="slide" src="{% static 'img/dragon1.png' %}" width="480" height="480">
+            <!-- キャプション -->
+            <div class="carousel-caption">
+                <h5>スライド見出し</h5>
+                <p>スライドのキャプション文</p>
+            </div>
+        </div>
+        <!-- Second slide -->
+        <div class="carousel-item"> <img class="d-block w-50" alt="slide" src="{% static 'img/dragon2.png' %}" width="480" height="480">
+            <!-- キャプション -->
+            <div class="carousel-caption">
+                <h5>スライド見出し</h5>
+                <p>スライドのキャプション文</p>
+            </div>
+        </div>
+        <!-- Third slide -->
+        <div class="carousel-item"> <img class="d-block w-50" alt="slide" src="{% static 'img/dragon3.png' %}" width="480" height="480">
+            <!-- キャプション -->
+            <div class="carousel-caption">
+                <h5>スライド見出し</h5>
+                <p>スライドのキャプション文</p>
+            </div>
+        </div>
+        <!-- Fourth slide -->
+        <!-- Fifth slide -->
+    </div>
+
+    <!-- コントローラー部分 -->
+    <!-- 前に戻るアイコン -->
+    <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">前に戻る</span>
+    </a>
+    <!-- 次に送るアイコン -->
+    <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">次に送る</span>
+    </a>
+</div>
+<br>
+
+<!-- ランキングを見る -->
+<h3 style="padding-top: 65px; margin-top: -65px;" id="show">ランキングを見る</h3>
+    <a href="{% url 'detail2' %}">ランキングを見る</a>
 <div class="row m-1">
     {% for key, value in category_dict.items %}
-    <div class="col-2 px-1"><a href="{% url 'detail' value.category1 %}">{{ value.category1 }}</a></div>
+    <div class="col-2 px-1"><a href="{% url 'detail' value.category1 %}">
+        <img class="card-img-top w-25" src="{% static 'img/'|add:value.category1|add:'.png' %}" alt="...">
+        {{ value.category1 }}
+    </a></div>
     {% endfor %}
 </div>
 
-{% comment %}
-<table class="table table-bordered border-dark">
-    <thead class="table-info">
-    <tr>
-        <th scope="col">カテゴリー1</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for key, value in category_dict.items %}
-    <tr>
-        <td scope="row"><a href="{% url 'detail' value.category1 %}">{{ value.category1 }}</a></td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
-{% endcomment %}
+<!-- アコーディオン -->
+<div class="accordion" id="accordion">
+    <!-- カード01 -->
+    <div class="card">
+        <!-- カードヘッダー -->
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                カード01の切替ボタン
+                </button>
+            </h5>
+        </div>
+        <!-- コンテンツ -->
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+            カード01のコンテンツ。カードヘッダー内の切替ボタンをクリックすると表示・非表示が切り替えられます。また、他のカードの切替ボタンをクリックすると非表示になります。
+            </div>
+        </div>
+    </div>
+
+    <!-- カード02 -->
+    <div class="card">
+        <!-- カードヘッダー -->
+        <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                カード02の切替ボタン
+                </button>
+            </h5>
+        </div>
+        <!-- コンテンツ -->
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div class="card-body">
+            カード02のコンテンツ。カードヘッダー内の切替ボタンをクリックすると表示・非表示が切り替えられます。また、他のカードの切替ボタンをクリックすると非表示になります。
+            </div>
+        </div>
+    </div>
+
+    <!-- カード03 -->
+    <div class="card">
+        <!-- カードヘッダー -->
+        <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                カード03の切替ボタン
+                </button>
+            </h5>
+        </div>
+        <!-- コンテンツ -->
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+            <div class="card-body">
+            カード03のコンテンツ。カードヘッダー内の切替ボタンをクリックすると表示・非表示が切り替えられます。また、他のカードの切替ボタンをクリックすると非表示になります。
+            </div>
+        </div>
+    </div>
+</div>
 <br>
 
-<h3 style="padding-top: 70px; margin-top: -90px;" id="entry">ランキング登録</h3>
+<!-- ランキング登録 -->
+<h3 style="padding-top: 65px; margin-top: -65px;" id="entry">ランキング登録</h3>
 <form name="form_top_page" id="form_top_page" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-control">
@@ -72,8 +187,65 @@
 </form>
 <br><br>
 
-<h3 style="padding-top: 70px; margin-top: -90px;" id="image">空間イメージ</h3>
-<img src="{% static 'img/home.jpg' %}" alt="画像の説明" id="house" /><br>
+<!-- モーダル -->
+<h3 style="padding-top: 65px; margin-top: -65px;" id="image">空間イメージ</h3>
+<!-- 切替ボタン -->
+<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+    <img src="{% static 'img/home.jpg' %}" alt="画像の説明" id="house" />
+</button>
+<!-- モーダルウィンドウ外枠 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- モーダルのダイアログ本体 -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <!-- モーダルのコンテンツ部分 -->
+        <div class="modal-content">
+            <!-- モーダルのヘッダー -->
+            <div class="modal-header">
+                <!-- モーダルのタイトル -->
+                <h5 class="modal-title" id="exampleModalLabel">モーダルのタイトル</h5>
+                <!-- 閉じるアイコン -->
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+
+            <!-- モーダルの本文 -->
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <!-- 1行目 -->
+                    <div class="row">
+                        <div class="col-md-4">col-md-4</div>
+                        <div class="col-md-4 ml-auto">col-md-4、ml-auto</div>
+                    </div>
+                    <!-- 2行目 -->
+                    <div class="row">
+                        <div class="col-md-3 ml-auto">col-md-3、ml-auto</div>
+                        <div class="col-md-2 ml-auto">col-md-2、ml-auto</div>
+                    </div>
+                    <!-- 3行目 -->
+                    <div class="row">
+                        <div class="col-md-6 ml-auto">col-md-6、ml-auto</div>
+                    </div>
+                    <!-- 3行目 -->
+                    <div class="row">
+                        <div class="col-sm-9">Level 1: col-sm-9
+                            <div class="row">
+                                <div class="col-8 col-sm-6"> Level 2: col-8、col-sm-6</div>
+                                <div class="col-4 col-sm-6"> Level 2: col-4、col-sm-6</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- モーダルのフッター -->
+            <div class="modal-footer">
+                <!-- 閉じるボタン -->
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
 <img src="{% static 'img/202409.jpg' %}" alt="画像の説明" id="202409" width="800" height="1000"><br>
 <img src="{% static 'img/202409.jpg' %}" alt="画像の説明" id="202408" width="800" height="1000"><br>
 

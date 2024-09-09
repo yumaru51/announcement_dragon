@@ -99,3 +99,8 @@ def detail(request, category1):
     }
     return render(request, 'rank/detail.html', data)
 
+
+def detail2(request):
+
+    return render(request, 'rank/datail.html', data)
+
