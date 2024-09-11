@@ -1,20 +1,16 @@
 
 【今日やること】
 ●カテゴリーは詳細ページ開いた後も、左に固定のほうが切り替えやすそう！
-　いっそのことアコーディオンでもいいかも
-
-●モーダルの家、部屋毎にわければいいのか！てゆーかグリッドで部屋を作ってもいい！
-
+　「ランキング見る」遷移
+　左メニューにカテゴリ①一覧表示、タブ切替（データ量）
+　カテゴリ②を分けて、ランキングTOP10くらいまで表示
+　カテゴリ②を辞書型変数で持ったほうがよさそう。
 
 ●家の大きな画像があって、エリアをクリックでそのエリアの物のページ！
+　モーダルの家、部屋毎にわければいいのか！てゆーかグリッドで部屋を作ってもいい！
 ●ユーザー毎はリンク切り替えでいいけど、カテゴリ切り替えはタブで十分かも
-
-
 ●「ランキングを見る」の表、デザイン変えたい
-　カード式にする？何個かサイトみよう。
-　価格コム、ZOZOTOWN、グッドデザイン、アマゾン、
-　ツイッチ、youtube、ディズニー、アマプラ、ネトフリ、filmarks、ツイッター、インスタ、
-　視覚的効果はほしいかな。「画像と文字」
+　視覚的効果ほしい。「画像と文字」
 ●EXCEL表とかに一旦データまとめて、50件くらい入れたいかも、、、、
 
 ●ユーザー検索！
@@ -22,11 +18,19 @@
 　バージョンがあってない？
 　5からは、dropright⇒dropend、data-toggle="dropdown"⇒data-bs-toggle="dropdown"
 　なんかもbgも4から5で変更なってた気がする。
-●カテゴリー登録！
 
 
 【めも】
+●templateタグ
+{% block 任意の名称 %}で入れ込める！
+基本は、title」、「header」、「content」だがcontentが複数分かれる場合やbaseを分けたい場合、
+{% block top_content %}、{% additional_content %}などにできる。
+※じゃあbase分けたりifせずにcontent分けたほうがいいね？
 
+●アコーディオン
+<div class="accordion" id="accordion">のidと
+<div id="collapseCategory_{{ item.category2 }}" class="collapse" aria-labelledby="collapseCategory_{{ item.category2 }}" data-parent="#accordion_{{ key }}">
+のdata-parent
 
 
 【明日やること】

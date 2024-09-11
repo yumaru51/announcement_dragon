@@ -127,43 +127,11 @@
     </div>
 </nav>
 
-<!-- nav　左サイドメニュー -->
+<!-- nav　左サイドメニュー　TOPとdetailで表示変更 -->
 <nav id="navbar" style="position: fixed; top: 150px; left: 0; height: 100%; overflow-y: auto; width: 10rem; background-color: #f8f9fa;">
     <!-- タブ部分 -->
     <ul class="nav nav-pills flex-column float-left" id="myTab" role="tablist" style="max-width: 10rem">
-
-        <!-- TOP -->
-        {% if '/rank/top/' in request.path %}
-        <li class="nav-item"><a class="nav-link active" href="#show">ランキングを見る</a></li>
-        <li class="nav-item"><a class="nav-link" href="#entry">ランキング登録</a></li>
-        <li class="nav-item"><a class="nav-link" href="#image">空間イメージ</a></li>
-        <!-- detail -->
-        {% elif '/rank/' in request.path %}
-        <li class="nav-item"><a class="nav-link active" href="#1">カテゴリ1</a></li>
-        <li class="nav-item"><a class="nav-link" href="#2">カテゴリ2</a></li>
-        <li class="nav-item"><a class="nav-link" href="#3">カテゴリ3</a></li>
-        {% endif %}
-
-        {% comment %}左メニューのタブ化はやめる。ドロップダウン調査するけど一旦コメントアウト。一番上には「Ctrl + home」で。
-        <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="pill" href="#home" role="tab"
-                                aria-controls="home" aria-selected="true">ランキングを見る</a></li>
-        <li class="nav-item"><a class="nav-link" id="profile-tab" data-toggle="pill" href="#profile" role="tab"
-                                aria-controls="profile" aria-selected="false">ランキング登録</a></li>
-        <li class="nav-item"><a class="nav-link" id="contact-tab" data-toggle="pill" href="#contact" role="tab"
-                                aria-controls="contact" aria-selected="false">空間イメージ</a></li>
-        <li class="nav-item dropend">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-               aria-expanded="false">ドロップダウン</a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">リンク1</a>
-                <a class="dropdown-item" href="#">リンク2</a>
-                <a class="dropdown-item" href="#">リンク3</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">その他のリンク</a>
-            </div>
-        </li>
-        {% endcomment %}
-
+        {% block additional_content %}{% endblock %}
     </ul>
 </nav>
 

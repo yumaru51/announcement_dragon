@@ -21,7 +21,7 @@ admin.site.register(Category2, Category2Admin)
 
 
 class RankDataAdmin(admin.ModelAdmin):
-    list_display = ('category1', 'category2')
+    list_display = ('user_name', 'category1', 'category2', 'product_name')
     list_filter = ['category1', 'category2']
     search_fields = ['category1', 'category2']
 

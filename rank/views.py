@@ -85,12 +85,6 @@ def detail(request, category1):
             records.repeat
         ]
 
-        print(RankData._meta.get_field('price').verbose_name, records.price)
-        print(RankData._meta.get_field('durability').verbose_name, records.durability)
-        print(RankData._meta.get_field('portability').verbose_name, records.portability)
-        print(RankData._meta.get_field('functionality').verbose_name, records.functionality)
-        print(RankData._meta.get_field('repeat').verbose_name, records.repeat)
-
     data = {
         'user_name': 'yumaru51',
         'rank_records': rank_records,
@@ -101,6 +95,42 @@ def detail(request, category1):
 
 
 def detail2(request):
+    category1_records = Category1.objects.all()
+    category_dict = {}
+    category_records = Category2.objects.all()
+    for category_record in category_records:
+        category_dict[str(category_record.category1)] = []
+    for category_record in category_records:
+        category_dict[str(category_record.category1)].append({
+            'category2': category_record.category2,
+        })
 
-    return render(request, 'rank/datail.html', data)
+    rank_records = RankData.objects.filter(user_name='yumaru51')
+
+    chart_data = {}
+    labels = [
+        RankData._meta.get_field('price').verbose_name,
+        RankData._meta.get_field('durability').verbose_name,
+        RankData._meta.get_field('portability').verbose_name,
+        RankData._meta.get_field('functionality').verbose_name,
+        RankData._meta.get_field('repeat').verbose_name,
+    ]
+
+    for records in rank_records:
+        chart_data[records.category2] = [
+            records.price,
+            records.durability,
+            records.portability,
+            records.functionality,
+            records.repeat
+        ]
+
+    data = {
+        'category1_records': category1_records,
+        'category_dict': category_dict,
+        'rank_records': rank_records,
+        'chart_data': chart_data,
+        'labels': labels,
+    }
+    return render(request, 'rank/detail2.html', data)
 
