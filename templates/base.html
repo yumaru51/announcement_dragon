@@ -68,6 +68,16 @@
     .select2-container--default .select2-selection--single .select2-selection__arrow {
         height: calc(1.5em + .75rem + 2px);
     }
+
+    body {
+    }
+    .row>.col, .row>[class^=col-] {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      background-color: rgba(0, 0, 0, .1);
+      border: 1px solid #aaa;
+    }
+
     </style>
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -92,7 +102,7 @@
 
 <!-- baseヘッダー -->
 <!--<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">-->
-<nav class="navbar navbar-expand-md navbar-dark sticky-top bg-dark" style="margin-top:-32px;">
+<nav class="navbar navbar-expand-md navbar-dark sticky-top bg-dark" style="margin-top:-16px;">
     <div class="container-fluid">
         <!-- ナビゲーションバーのトグル機能、あってるのかいつか確認はしたいけど、、、 -->
         <!-- こいつなに？ -->
@@ -127,7 +137,7 @@
     </div>
 </nav>
 
-<!-- nav　左サイドメニュー　TOPとdetailで表示変更 -->
+<!-- 左サイドメニュー -->
 <nav id="navbar" style="position: fixed; top: 150px; left: 0; height: 100%; overflow-y: auto; width: 10rem; background-color: #f8f9fa;">
     <!-- タブ部分 -->
     <ul class="nav nav-pills flex-column float-left" id="myTab" role="tablist" style="max-width: 10rem">
@@ -138,6 +148,9 @@
 <!-- 各コンテンツ格納 -->
 <main class="container-fluid themed-container">
     <div class="bg-light p-5 rounded">
+        <!-- パネル部分 -->
+        {% block left_side_menu_content2 %}{% endblock %}
+        <!-- メインコンテンツ -->
         {% block content %}{% endblock %}
     </div>
 </main>

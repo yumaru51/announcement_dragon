@@ -13,145 +13,6 @@
         </div>
     {% endfor %}
 {% endif %}
-
-{% comment %}
-{% for key, values in category_dict.items %}
-    {% for item in values %}
-        キーは{{ key }}、値は{{ item.category2 }}<br>
-    {% endfor %}
-{% endfor %}
-{% endcomment %}
-
-
-
-{% for key, values in category_dict.items %}
-<h3 style="padding-top: 70px; margin-top: -90px;">{{ key }}一覧</h3>
-
-<!-- アコーディオン -->
-<div class="accordion" id="accordion_{{ key }}">
-    {% for item in values %}
-        <div class="card">
-            <div class="card-header" id="headingCategory_{{ item.category2 }}">
-                <h5 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseCategory_{{ item.category2 }}" aria-expanded="true" aria-controls="collapseCategory_{{ item.category2 }}">
-                    {{ item.category2 }}
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseCategory_{{ item.category2 }}" class="collapse" aria-labelledby="collapseCategory_{{ item.category2 }}" data-parent="#accordion_{{ key }}">
-                <div class="card-body">
-
-
-                    {{ item.category2 }}のコンテンツ
-
-                    {% comment %}
-                    {% endcomment %}
-
-                        <!-- card　タブ変えたときの枠の高さを統一したい -->
-                        <div id="card" class="row" style="margin-top:-60px; padding-top:60px;">
-                            {% for column in rank_records %}
-                            {% if item.category2 == column.category2 %}
-                            <div class="col-sm-3">
-                                <div class="card" style="max-width: 25rem">
-                                    <div class="card-header">
-                                        <ul class="nav nav-tabs card-header-tabs">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#{{ column.category2 }}_1">{{ column.category2 }}</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#{{ column.category2 }}_2">status</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#{{ column.category2 }}_3">level</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="tab-content mt-3" style="max-height: 50rem">
-
-                                        <div class="tab-pane fade show active" id="{{ column.category2 }}_1">
-                                            <img class="card-img-top"
-                                                 src="{% static 'img/'|add:column.product_name|add:'.jpg' %}" alt="...">
-                                            <div class="card-body">
-                                                <h4 class="card-title">{{ column.product_name }}</h4>
-                                                <p class="card-text">{{ column.maker }}</p>
-                                                <p class="card-text">{{ column.category }}</p>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item"><a href="#" class="badge bg-success">更新</a></li>
-                                                    <li class="list-group-item"><a href="#" class="badge bg-success">削除</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="tab-pane fade" id="{{ column.category2 }}_2">
-                                            <div class="card-body">
-                                                <canvas id="{{ column.category2 }}_RadarChart" width="50" height="50"></canvas>
-                                                <h4 class="card-title">{{ column.product_name }}</h4>
-                                                <ul class="list-group list-group-flush">
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="tab-pane fade" id="{{ column.category2 }}_3">
-                                            <img class="card-img-top"
-                                                 src="{% static 'img/'|add:column.product_name|add:'.jpg' %}" alt="...">
-                                            <div class="card-body">
-                                                <h4 class="card-title">{{ column.product_name }}</h4>
-                                                <p class="card-text">{{ column.maker }}</p>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item"><a href="#" class="badge bg-success">更新3</a></li>
-                                                    <li class="list-group-item"><a href="#" class="badge bg-success">削除3</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="card-footer">
-                                        {{ column.category2 }}
-                                        <!-- dropdown -->
-                                        <div class="btn-group dropright">
-                                            <button class="btn btn-secondary dropdown-toggle mt-2" type="button" data-toggle="dropdown"
-                                                    aria-haspopup="true" aria-expanded="false">
-                                                更新
-                                            </button>
-                                            <div class="dropdown-menu p-3" style="max-width: 300px;">
-                                                <h6 class="dropdown-header">ドロップダウンメニューの見出し</h6>
-                                                <form class="px-4 py-3" method="post">
-                                                    {% csrf_token %}
-                                                    <div class="form-group">
-                                                        <label for="category">商品紹介</label>
-                                                        <input type="text" id="category2" name="category2" value="{{ column.category2 }}" hidden>
-                                                        <textarea class="form-control" id="category" name="category" rows="4" cols="50" placeholder="{{ column.category }}"></textarea>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">更新</button>
-                                                </form>
-
-                                                <div class="dropdown-divider"></div>
-                                                <p>TEST</p>
-                                                <span class="dropdown-item-text">非リンクテキスト</span>
-                                                <a class="dropdown-item" href="#">初めての方</a>
-                                                <a class="dropdown-item" href="#">パスワードをお忘れの方</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-
-
-
-
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-</div>
-<br><br>
-{% endfor %}
-
-
 </div>
 <script>
 {% for key, value in chart_data.items %}
@@ -196,32 +57,148 @@
 
 
 <!-- nav　左サイドメニュー -->
+<!-- タブ部分 -->
 {% block left_side_menu_content %}
 
         {% for category1_record in category1_records %}
-            <li class="nav-item"><a class="nav-link" href="#1">{{ category1_record.category1 }}</a></li>
+            <li class="nav-item"><a class="nav-link" id="{{ category1_record.category1 }}-tab" data-toggle="pill"
+                                    href="#{{ category1_record.category1 }}" role="tab"
+                                    aria-controls="{{ category1_record.category1 }}" aria-selected="true">{{ category1_record.category1 }}</a></li>
         {% endfor %}
-
-        {% comment %}カテゴリー1タブ化
-        <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="pill" href="#home" role="tab"
-                                aria-controls="home" aria-selected="true">ランキングを見る</a></li>
-        <li class="nav-item"><a class="nav-link" id="profile-tab" data-toggle="pill" href="#profile" role="tab"
-                                aria-controls="profile" aria-selected="false">ランキング登録</a></li>
-        <li class="nav-item"><a class="nav-link" id="contact-tab" data-toggle="pill" href="#contact" role="tab"
-                                aria-controls="contact" aria-selected="false">空間イメージ</a></li>
-        <li class="nav-item dropend">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-               aria-expanded="false">ドロップダウン</a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">リンク1</a>
-                <a class="dropdown-item" href="#">リンク2</a>
-                <a class="dropdown-item" href="#">リンク3</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">その他のリンク</a>
-            </div>
-        </li>
-        {% endcomment %}
 
 {% endblock %}
 
+
+<!-- パネル部分 -->
+{% block left_side_menu_content2 %}
+
+        <div class="tab-content mt-3 mb-3" id="myTabContent" style="margin-left: 8rem; padding-top: 0px; margin-top: 0px;">
+            {% for category1_record in category1_records %}
+
+            <div class="tab-pane fade" id="{{ category1_record.category1 }}" role="tabpanel"
+                 aria-labelledby="{{ category1_record.category1 }}-tab">
+
+                {{ category1_record.category1 }}のコンテンツが入ります。<br><br>
+
+                <!-- アコーディオン -->
+                {% for key, values in category_dict.items %}
+                {% if category1_record.category1 == key %}
+                <h3 style="padding-top: 0px; margin-top: 0px;">{{ key }}一覧</h3>
+                <div class="accordion" id="accordion_{{ key }}">
+                    {% for item in values %}
+                        <div class="card">
+                            <div class="card-header" id="headingCategory_{{ item.category2 }}">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCategory_{{ item.category2 }}" aria-expanded="true" aria-controls="collapseCategory_{{ item.category2 }}">
+                                    {{ item.category2 }}
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseCategory_{{ item.category2 }}" class="collapse" aria-labelledby="collapseCategory_{{ item.category2 }}" data-parent="#accordion_{{ key }}">
+                                <div class="card-body">
+                                    <!-- card　タブ変えたときの枠の高さを統一したい -->
+                                    <div id="card" class="row" style="margin-top:0px; padding-top:0px;">
+                                        {% for column in rank_records %}
+                                        {% if item.category2 == column.category2 %}
+                                        <div class="fixed-width col-3">
+                                            <div class="card" style="width: 23rem">
+                                                <div class="card-header">
+                                                    <ul class="nav nav-tabs card-header-tabs">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active" data-toggle="tab" href="#{{ column.category2 }}_1">{{ column.category2 }}</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" data-toggle="tab" href="#{{ column.category2 }}_2">status</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" data-toggle="tab" href="#{{ column.category2 }}_3">level</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="tab-content mt-3" style="max-height: 50rem">
+
+                                                    <div class="tab-pane fade show active" id="{{ column.category2 }}_1">
+                                                        <img class="card-img-top"
+                                                             src="{% static 'img/'|add:column.product_name|add:'.jpg' %}" alt="...">
+                                                        <div class="card-body">
+                                                            <h4 class="card-title">{{ column.product_name }}</h4>
+                                                            <p class="card-text">{{ column.maker }}</p>
+                                                            <p class="card-text">{{ column.category }}</p>
+                                                            <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item"><a href="#" class="badge bg-success">更新</a></li>
+                                                                <li class="list-group-item"><a href="#" class="badge bg-success">削除</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="tab-pane fade" id="{{ column.category2 }}_2">
+                                                        <div class="card-body">
+                                                            <canvas id="{{ column.category2 }}_RadarChart" width="50" height="50"></canvas>
+                                                            <h4 class="card-title">{{ column.product_name }}</h4>
+                                                            <ul class="list-group list-group-flush">
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="tab-pane fade" id="{{ column.category2 }}_3">
+                                                        <img class="card-img-top"
+                                                             src="{% static 'img/'|add:column.product_name|add:'.jpg' %}" alt="...">
+                                                        <div class="card-body">
+                                                            <h4 class="card-title">{{ column.product_name }}</h4>
+                                                            <p class="card-text">{{ column.maker }}</p>
+                                                            <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item"><a href="#" class="badge bg-success">更新3</a></li>
+                                                                <li class="list-group-item"><a href="#" class="badge bg-success">削除3</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="card-footer">
+                                                    {{ column.category2 }}
+                                                    <!-- dropdown -->
+                                                    <div class="btn-group dropright">
+                                                        <button class="btn btn-secondary dropdown-toggle mt-2" type="button" data-bs-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                            更新
+                                                        </button>
+                                                        <div class="dropdown-menu p-3" style="max-width: 300px;">
+                                                            <h6 class="dropdown-header">ドロップダウンメニューの見出し</h6>
+                                                            <form class="px-4 py-3" method="post">
+                                                                {% csrf_token %}
+                                                                <div class="form-group">
+                                                                    <label for="category">商品紹介</label>
+                                                                    <input type="text" id="category2" name="category2" value="{{ column.category2 }}" hidden>
+                                                                    <textarea class="form-control" id="category" name="category" rows="4" cols="50" placeholder="{{ column.category }}"></textarea>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary">更新</button>
+                                                            </form>
+
+                                                            <div class="dropdown-divider"></div>
+                                                            <p>TEST</p>
+                                                            <span class="dropdown-item-text">非リンクテキスト</span>
+                                                            <a class="dropdown-item" href="#">初めての方</a>
+                                                            <a class="dropdown-item" href="#">パスワードをお忘れの方</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div><br><br>
+                {% endif %}
+                {% endfor %}
+
+            </div>
+            {% endfor %}
+        </div><br><br>
+
+{% endblock %}
 
