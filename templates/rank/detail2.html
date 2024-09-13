@@ -6,6 +6,8 @@
 
 {% block content %}
 <div style="margin-left: 8rem;">
+
+<!-- 登録時のアラート -->
 {% if messages %}
     {% for message in messages %}
         <div class="alert alert-danger" role="alert">
@@ -13,7 +15,9 @@
         </div>
     {% endfor %}
 {% endif %}
+
 </div>
+
 <script>
 {% for key, value in chart_data.items %}
     var chartData = {{ value|safe }};
@@ -86,7 +90,7 @@
                             <div class="card">
                                 <div class="card-header" id="headingCategory_{{ item.category2 }}">
                                     <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCategory_{{ item.category2 }}" aria-expanded="true" aria-controls="collapseCategory_{{ item.category2 }}">
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseCategory_{{ item.category2 }}" aria-expanded="true" aria-controls="collapseCategory_{{ item.category2 }}">
                                         {{ item.category2 }}
                                         </button>
                                     </h5>
@@ -157,7 +161,7 @@
                                                         {{ column.category2 }}
                                                         <!-- dropdown -->
                                                         <div class="btn-group dropright">
-                                                            <button class="btn btn-secondary dropdown-toggle mt-2" type="button" data-bs-toggle="dropdown"
+                                                            <button class="btn btn-secondary dropdown-toggle mt-2" type="button" data-toggle="dropdown"
                                                                     aria-haspopup="true" aria-expanded="false">
                                                                 更新
                                                             </button>

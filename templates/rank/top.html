@@ -7,6 +7,7 @@
 
 {% block content %}
 
+<!-- 登録時のアラート -->
 {% if rank_data_form.errors %}
     {% for field, errors in rank_data_form.errors.items %}
         {% for error in errors %}
@@ -96,64 +97,6 @@
     {% endfor %}
 </div>
 
-<!-- アコーディオン -->
-<div class="accordion" id="accordion">
-    <!-- カード01 -->
-    <div class="card">
-        <!-- カードヘッダー -->
-        <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                カード01の切替ボタン
-                </button>
-            </h5>
-        </div>
-        <!-- コンテンツ -->
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-            カード01のコンテンツ。カードヘッダー内の切替ボタンをクリックすると表示・非表示が切り替えられます。また、他のカードの切替ボタンをクリックすると非表示になります。
-            </div>
-        </div>
-    </div>
-
-    <!-- カード02 -->
-    <div class="card">
-        <!-- カードヘッダー -->
-        <div class="card-header" id="headingTwo">
-            <h5 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                カード02の切替ボタン
-                </button>
-            </h5>
-        </div>
-        <!-- コンテンツ -->
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-            <div class="card-body">
-            カード02のコンテンツ。カードヘッダー内の切替ボタンをクリックすると表示・非表示が切り替えられます。また、他のカードの切替ボタンをクリックすると非表示になります。
-            </div>
-        </div>
-    </div>
-
-    <!-- カード03 -->
-    <div class="card">
-        <!-- カードヘッダー -->
-        <div class="card-header" id="headingThree">
-            <h5 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                カード03の切替ボタン
-                </button>
-            </h5>
-        </div>
-        <!-- コンテンツ -->
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-            <div class="card-body">
-            カード03のコンテンツ。カードヘッダー内の切替ボタンをクリックすると表示・非表示が切り替えられます。また、他のカードの切替ボタンをクリックすると非表示になります。
-            </div>
-        </div>
-    </div>
-</div>
-<br>
-
 <!-- ランキング登録 -->
 <h3 style="padding-top: 65px; margin-top: -65px;" id="entry">ランキング登録</h3>
 <form name="form_top_page" id="form_top_page" method="post" enctype="multipart/form-data">
@@ -176,9 +119,53 @@
 <!-- モーダル -->
 <h3 style="padding-top: 65px; margin-top: -65px;" id="image">空間イメージ</h3>
 <!-- 切替ボタン -->
+<div class="row">
+    <div class="col-2">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+            寝室
+        </button>
+    </div>
+    <div class="col-6">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+            リビング
+        </button>
+    </div>
+    <div class="col-4">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+            キッチン
+        </button>
+    </div>
+    <div class="col-6">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+            子供部屋１
+        </button>
+    </div>
+    <div class="col-6">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+            子供部屋２
+        </button>
+    </div>
+    <div class="col-4">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+            トイレ
+        </button>
+    </div>
+    <div class="col-4">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+            洗面所
+        </button>
+    </div>
+    <div class="col-4">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+            物置
+        </button>
+    </div>
+</div>
+
 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
     <img src="{% static 'img/home.jpg' %}" alt="画像の説明" id="house" />
 </button>
+
 <!-- モーダルウィンドウ外枠 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <!-- モーダルのダイアログ本体 -->
@@ -232,11 +219,7 @@
     </div>
 </div>
 <br><br>
-<img src="{% static 'img/202409.jpg' %}" alt="画像の説明" id="202409" width="800" height="1000"><br>
-<img src="{% static 'img/202409.jpg' %}" alt="画像の説明" id="202408" width="800" height="1000"><br>
 
-<br>
-<br>
 </div>
 {% endblock %}
 

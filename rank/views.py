@@ -134,3 +134,7 @@ def detail2(request):
     }
     return render(request, 'rank/detail2.html', data)
 
+
+def prime(request):
+    return render(request, 'rank/prime.html')
+

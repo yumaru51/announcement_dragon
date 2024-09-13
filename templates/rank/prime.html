@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}AmazonPrimeVideo新作情報{% endblock %}
+{% block header %}{% endblock %}
+
+{% block content %}
+
+<div style="margin-left: 8rem; ">
+<h3 style="padding-top: 65px; margin-top: -65px;" id="image">AmazonPrimeVideo新作情報</h3>
+<img src="{% static 'img/202410.jpg' %}" alt="10月新作" id="202410" width="800" height="1000" onerror="this.src='{% static 'img/notImage.png' %}';"><br>
+<img src="{% static 'img/202409.jpg' %}" alt="9月新作" id="202409" width="800" height="1000" onerror="this.src='{% static 'img/notImage.png' %}';"><br>
+<img src="{% static 'img/202408.jpg' %}" alt="8月新作" id="202408" width="800" height="1000" onerror="this.src='{% static 'img/notImage.png' %}';"><br>
+<img src="{% static 'img/202407.jpg' %}" alt="7月新作" id="202407" width="800" height="1000" onerror="this.src='{% static 'img/notImage.png' %}';"><br>
+<img src="{% static 'img/202406.jpg' %}" alt="6月新作" id="202406" width="800" height="1000" onerror="this.src='{% static 'img/notImage.png' %}';"><br>
+<img src="{% static 'img/202405.jpg' %}" alt="5月新作" id="202405" width="800" height="1000" onerror="this.src='{% static 'img/notImage.png' %}';"><br>
+<img src="{% static 'img/202404.jpg' %}" alt="4月新作" id="202404" width="800" height="1000" onerror="this.src='{% static 'img/notImage.png' %}';"><br>
+<img src="{% static 'img/202403.jpg' %}" alt="3月新作" id="202403" width="800" height="1000" onerror="this.src='{% static 'img/notImage.png' %}';"><br>
+<img src="{% static 'img/202402.jpg' %}" alt="2月新作" id="202402" width="800" height="1000" onerror="this.src='{% static 'img/notImage.png' %}';"><br>
+<img src="{% static 'img/202401.jpg' %}" alt="1月新作" id="202401" width="800" height="1000" onerror="this.src='{% static 'img/notImage.png' %}';"><br>
+</div>
+
+{% endblock %}
+
