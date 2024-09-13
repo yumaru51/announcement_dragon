@@ -1,6 +1,6 @@
 
 【今日やること】
-●プライムビデオページ分ける。
+●プライムビデオページ作成、GIT容量！
 ●ユーザー検索！してはやく「detail」けせお！
 ●時間とってデザイン考える。JavaScript勉強。
 ●EXCEL表とかに一旦データまとめて、50件くらい入れたいかも、、、、
@@ -13,6 +13,9 @@ data-bs-toggle,data-bs-parent
 
 ●該当画像がない場合の代替え
 onerror="this.src='{% static 'img/notImage.png' %}';"
+
+●GIT
+　git reset：コミット前なら全部戻せばよい！
 
 
 【明日やること】

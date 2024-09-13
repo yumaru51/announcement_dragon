@@ -39,7 +39,8 @@
 
                 <div class="tab-pane fade show active" id="{{ column.category2 }}_1">
                     <img class="card-img-top"
-                         src="{% static 'img/'|add:column.product_name|add:'.jpg' %}" alt="...">
+                         src="{% static 'img/'|add:column.product_name|add:'.jpg' %}" alt="..."
+                         onerror="this.src='{% static 'img/notImage.png' %}';">
                     <div class="card-body">
                         <h4 class="card-title">{{ column.product_name }}</h4>
                         <p class="card-text">{{ column.maker }}</p>
@@ -62,7 +63,8 @@
 
                 <div class="tab-pane fade" id="{{ column.category2 }}_3">
                     <img class="card-img-top"
-                         src="{% static 'img/'|add:column.product_name|add:'.jpg' %}" alt="...">
+                         src="{% static 'img/'|add:column.product_name|add:'.jpg' %}" alt="..."
+                         onerror="this.src='{% static 'img/notImage.png' %}';">
                     <div class="card-body">
                         <h4 class="card-title">{{ column.product_name }}</h4>
                         <p class="card-text">{{ column.maker }}</p>
