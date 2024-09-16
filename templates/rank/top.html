@@ -90,7 +90,8 @@
 
 <!-- ランキングを見る -->
 <h3 style="padding-top: 65px; margin-top: -65px;" id="show">ランキングを見る</h3>
-    <a href="{% url 'detail2' %}">ランキングを見る</a>
+ユーザー
+<a href="{% url 'detail2' %}">ランキングを見る</a>
 <div class="row m-1">
     {% for key, value in category_dict.items %}
     <div class="col-2 px-1"><a href="{% url 'detail' value.category1 %}">
